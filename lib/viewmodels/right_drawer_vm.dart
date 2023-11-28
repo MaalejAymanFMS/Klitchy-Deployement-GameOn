@@ -51,7 +51,7 @@ class RightDrawerVMState extends State<RightDrawerVM>
       final jsonResponse = json.decode(response.body);
       final data = OrdersP2.fromJson(jsonResponse);
       await http.post(
-        Uri.parse("https://prime-verified-pug.ngrok-free.app/api/orders/"),
+        Uri.parse("https://oriented-stag-destined.ngrok-free.app/api/orders/"),
         headers: headers,
         body: json.encode({
           "order_id": data.dataP2?.name,

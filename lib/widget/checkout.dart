@@ -32,7 +32,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Future<int> payment() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final String url =
-        'https://erpnext-141144-0.cloudclusters.net/api/resource/Table%20Order/${prefs.getString("orderId")}';
+        'https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order/${prefs.getString("orderId")}';
 
     final payload = json.encode({"status": "Invoiced"});
     print(prefs.getString("orderId"));
@@ -68,7 +68,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     print("createInvoice");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     const String url =
-        'https://erpnext-141144-0.cloudclusters.net/api/resource/POS%20Invoice';
+        'https://erpnext-155835-0.cloudclusters.net/api/resource/POS%20Invoice';
     try {
       final token = prefs.getString("token");
       for (var item in widget.appState.entryItems) {
@@ -162,7 +162,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final orderId = prefs.getString("orderId");
     String url =
-        'https://erpnext-141144-0.cloudclusters.net/api/method/frappe.utils.print_format.download_pdf?doctype=Table%20Order&name=$orderId&no_letterhead=1&letterhead=No%20Letterhead&settings=%7B%7D&format=Order%20Account&_lang=en';
+        'https://erpnext-155835-0.cloudclusters.net/api/method/frappe.utils.print_format.download_pdf?doctype=Table%20Order&name=$orderId&no_letterhead=1&letterhead=No%20Letterhead&settings=%7B%7D&format=ticket%20restau&_lang=en';
     try {
       final token = prefs.getString("token");
       final response = await http.get(

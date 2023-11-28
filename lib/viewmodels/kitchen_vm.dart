@@ -22,7 +22,7 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
   Future<List<Order>> fetchOrder() async {
     final response = await http.get(
       Uri.parse(
-          'https://prime-verified-pug.ngrok-free.app/orders/orders-by-status/wannaStart/'),
+          'https://oriented-stag-destined.ngrok-free.app/orders/orders-by-status/wannaStart/'),
     );
 
     if (response.statusCode == 200) {
@@ -36,7 +36,7 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
       for (var orderName in orderNames) {
         final orderResponse = await http.get(
           Uri.parse(
-              'https://erpnext-141144-0.cloudclusters.net/api/resource/Table%20Order/$orderName'),
+              'https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order/$orderName'),
           headers: {'Authorization': 'token 1e36fdb116a0d37:cf66f1ad25b58ba'},
         );
 
@@ -79,7 +79,7 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
 
   @override
   Future<void> startOrder(String id) async {
-    String url = 'https://prime-verified-pug.ngrok-free.app/api/orders/$id/';
+    String url = 'https://oriented-stag-destined.ngrok-free.app/api/orders/$id/';
     Map<String, String> headers = {
       'Content-Type': 'application/json',
     };
@@ -99,7 +99,7 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
     if (response.statusCode == 201) {
       final orderResponse = await http.get(
         Uri.parse(
-            'https://erpnext-141144-0.cloudclusters.net/api/resource/Table%20Order/$id'),
+            'https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order/$id'),
         headers: {'Authorization': 'token 1e36fdb116a0d37:cf66f1ad25b58ba'},
       );
 
@@ -149,7 +149,7 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
     Set<Order> uniqueOrders = <Order>{};
     final response = await http.get(
       Uri.parse(
-          'https://prime-verified-pug.ngrok-free.app/orders/orders-by-status/progress/'),
+          'https://oriented-stag-destined.ngrok-free.app/orders/orders-by-status/progress/'),
     );
 
     if (response.statusCode == 200) {
@@ -165,7 +165,7 @@ inPrgressOrders = uniqueOrders.toList();
             if (order_id != null) {
               final orderResponse = await http.get(
                 Uri.parse(
-                    'https://erpnext-141144-0.cloudclusters.net/api/resource/Table%20Order/$order_id'),
+                    'https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order/$order_id'),
                 headers: {
                   'Authorization': 'token 1e36fdb116a0d37:cf66f1ad25b58ba'
                 },
@@ -212,7 +212,7 @@ inPrgressOrders = uniqueOrders.toList();
     Set<Order> uniqueOrders = <Order>{};
     final response = await http.get(
       Uri.parse(
-          'https://prime-verified-pug.ngrok-free.app/orders/orders-by-status/done/'),
+          'https://oriented-stag-destined.ngrok-free.app/orders/orders-by-status/done/'),
     );
 
     if (response.statusCode == 200) {
@@ -228,7 +228,7 @@ inPrgressOrders = uniqueOrders.toList();
             if (order_id != null) {
               final orderResponse = await http.get(
                 Uri.parse(
-                    'https://erpnext-141144-0.cloudclusters.net/api/resource/Table%20Order/$order_id'),
+                    'https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order/$order_id'),
                 headers: {
                   'Authorization': 'token 1e36fdb116a0d37:cf66f1ad25b58ba'
                 },
@@ -273,7 +273,7 @@ inPrgressOrders = uniqueOrders.toList();
   @override
   Future<void> updateStatusOrder(String id) async {
     print(id);
-    String url = 'https://prime-verified-pug.ngrok-free.app/api/orders/$id/';
+    String url = 'https://oriented-stag-destined.ngrok-free.app/api/orders/$id/';
 
     Map<String, String> headers = {
       'Content-Type': 'application/json',
@@ -296,7 +296,7 @@ inPrgressOrders = uniqueOrders.toList();
     if (response.statusCode == 200) {
       final orderResponse = await http.get(
         Uri.parse(
-            'https://erpnext-141144-0.cloudclusters.net/api/resource/Table%20Order/$id'),
+            'https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order/$id'),
         headers: {'Authorization': 'token 1e36fdb116a0d37:cf66f1ad25b58ba'},
       );
 
@@ -336,7 +336,7 @@ inPrgressOrders = uniqueOrders.toList();
 
   void postOrder(Order order) async {
     final url =
-        Uri.parse('https://prime-verified-pug.ngrok-free.app/api/orders/');
+        Uri.parse('https://oriented-stag-destined.ngrok-free.app/api/orders/');
     final data = {"order_id": order.name, "status_kds": "wannaStart"};
 
     final response = await http.post(
