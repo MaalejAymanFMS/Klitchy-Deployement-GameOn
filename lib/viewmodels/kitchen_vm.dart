@@ -37,7 +37,7 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
         final orderResponse = await http.get(
           Uri.parse(
               'https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order/$orderName'),
-          headers: {'Authorization': 'token 1e36fdb116a0d37:cf66f1ad25b58ba'},
+          headers: {'Authorization': 'token 8df95f63a3af191:0deb46960ef1991'},
         );
 
         if (orderResponse.statusCode == 200) {
@@ -100,7 +100,7 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
       final orderResponse = await http.get(
         Uri.parse(
             'https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order/$id'),
-        headers: {'Authorization': 'token 1e36fdb116a0d37:cf66f1ad25b58ba'},
+        headers: {'Authorization': 'token 8df95f63a3af191:0deb46960ef1991'},
       );
 
       if (orderResponse.statusCode == 200) {
@@ -167,7 +167,7 @@ inPrgressOrders = uniqueOrders.toList();
                 Uri.parse(
                     'https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order/$order_id'),
                 headers: {
-                  'Authorization': 'token 1e36fdb116a0d37:cf66f1ad25b58ba'
+                  'Authorization': 'token 8df95f63a3af191:0deb46960ef1991'
                 },
               );
 
@@ -230,7 +230,7 @@ inPrgressOrders = uniqueOrders.toList();
                 Uri.parse(
                     'https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order/$order_id'),
                 headers: {
-                  'Authorization': 'token 1e36fdb116a0d37:cf66f1ad25b58ba'
+                  'Authorization': 'token 8df95f63a3af191:0deb46960ef1991'
                 },
               );
 
@@ -277,7 +277,7 @@ inPrgressOrders = uniqueOrders.toList();
 
     Map<String, String> headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'token 1e36fdb116a0d37:cf66f1ad25b58ba',
+      'Authorization': 'token 8df95f63a3af191:0deb46960ef1991',
     };
 
     Map<String, String> requestBody = {
@@ -297,7 +297,7 @@ inPrgressOrders = uniqueOrders.toList();
       final orderResponse = await http.get(
         Uri.parse(
             'https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order/$id'),
-        headers: {'Authorization': 'token 1e36fdb116a0d37:cf66f1ad25b58ba'},
+        headers: {'Authorization': 'token 8df95f63a3af191:0deb46960ef1991'},
       );
 
       if (orderResponse.statusCode == 200) {

@@ -74,7 +74,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       for (var item in widget.appState.entryItems) {
         if (item.status == "Sent") {
           widget.appState.updateEntryItemDocType(
-              item.item_code!, "POS Invoice Item", "Stores - JP");
+              item.item_code!, "POS Invoice Item", "Stores - GP");
         }
       }
       Map<String, dynamic> body = {
@@ -82,12 +82,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         "modified_by": prefs.getString("email"), //tetbaddel bel waiter
         "naming_series": "ACC-PSINV-.YYYY.-",
         "customer": "default",
-        "customer_name": "default ",
+        "customer_name": "default",
         "pos_profile": "caissier",
         "is_pos": 1,
         "is_return": 0,
         "update_billed_amount_in_sales_order": 0,
-        "company": "Jumpark",
+        "company": "The Game Production",
         "posting_date": DateTime.now().year.toString()+"-"+DateTime.now().month.toString()+"-"+DateTime.now().day.toString(),
         "posting_time": DateTime.now().hour.toString()+":"+DateTime.now().minute.toString(),
         "set_posting_time": 0,
@@ -100,7 +100,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         "price_list_currency": "TND",
         "plc_conversion_rate": 1.0,
         "ignore_pricing_rule": 0,
-        "set_warehouse": "Stores - JP",
+        "set_warehouse": "Stores - GP",
         "update_stock": 1,
         "total": widget.appState.total,
         "net_total": widget.appState.subtotal,
@@ -109,13 +109,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         "grand_total": widget.appState.total,
         "paid_amount": amountGiven,
         "change_amount": change,
-        "account_for_change_amount": "Cash - JP",
-        "write_off_account": "Sales - JP",
-        "write_off_cost_center": "Main - JP",
+        "account_for_change_amount": "Cash - GP",
+        "write_off_account": "Sales - GP",
+        "write_off_cost_center": "Main - GP",
         "language": "fr",
         "customer_group": "Individual",
         "status": "Paid",
-        "debit_to": "Debtors - JP",
+        "debit_to": "Debtors - GP",
         "party_account_currency": "TND",
         "is_opening": "No",
         "c_form_applicable": "No",
@@ -134,7 +134,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             "default": 0,
             "mode_of_payment": "Cash",
             "amount": widget.appState.total, //tetbaddel
-            "account": "Cash - JP",
+            "account": "Cash - GP",
             "type": "Cash",
             "doctype": "Sales Invoice Payment"
           }

@@ -36,7 +36,7 @@ class TablOrderPageState extends State<TablOrderPage>
 
     try {
       final response = await http.get(
-        Uri.parse("$baseUrl/resource/Item%20Group"),
+        Uri.parse('$baseUrl/resource/Item%20Group?filters=[["parent_item_group","=","Products"]]'),
         headers: headers,
       );
 

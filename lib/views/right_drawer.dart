@@ -115,7 +115,7 @@ class _RightDrawerState extends State<RightDrawer> {
       "customer": "Defult Customer",
       "pos_profile": "Caissier",
       "selling_price_list": "Standard Selling",
-      "company": "Jumpark",
+      "company": "The Game Production",
       "doctype": "Table Order",
       "amount": widget.appState.total,
       "tax": widget.appState.tva,

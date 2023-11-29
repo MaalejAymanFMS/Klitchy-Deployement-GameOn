@@ -83006,7 +83006,7 @@ this.yq()},
 yq(){var s=0,r=A.P(t.H),q=1,p,o=this,n,m,l,k,j,i,h,g,f
 var $async$yq=A.Q(function(a,b){if(a===1){p=b
 s=q}while(true)switch(s){case 0:i=t.N
-h=A.ac(["Authorization","token 1e36fdb116a0d37:cf66f1ad25b58ba"],i,i)
+h=A.ac(["Authorization","token 8df95f63a3af191:0deb46960ef1991"],i,i)
 g='https://erpnext-155835-0.cloudclusters.net/api/resource/User?fields=["first_name","email"]&filters=[["full_name", "LIKE", "%waiter%"]]'
 q=3
 s=6
@@ -83066,7 +83066,7 @@ ts(){var s=0,r=A.P(t.vb),q,p,o,n,m,l,k,j,i,h,g,f,e,d
 var $async$ts=A.Q(function(a,b){if(a===1)return A.M(b,r)
 while(true)switch(s){case 0:f=t.N
 s=3
-return A.G(A.lO(A.cE('https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order?fields=["name","table","table_description"]&filters=[["table_description", "LIKE", "T2"]]'),A.ac(["Authorization","token 1e36fdb116a0d37:cf66f1ad25b58ba"],f,f)),$async$ts)
+return A.G(A.lO(A.cE('https://erpnext-155835-0.cloudclusters.net/api/resource/Table%20Order?fields=["name","table","table_description"]&filters=[["table_description", "LIKE", "T2"]]'),A.ac(["Authorization","token 8df95f63a3af191:0deb46960ef1991"],f,f)),$async$ts)
 case 3:e=b
 d=e.b
 s=d===200?4:6
@@ -83076,7 +83076,7 @@ o=A.a([],t.Bk)
 d=p.length,n=t.j,m=t.BP,l=0
 case 7:if(!(l<d)){s=9
 break}s=10
-return A.G(A.lO(A.cE(u.l+A.i(p[l])),A.ac(["Authorization","token 1e36fdb116a0d37:cf66f1ad25b58ba"],f,f)),$async$ts)
+return A.G(A.lO(A.cE(u.l+A.i(p[l])),A.ac(["Authorization","token 8df95f63a3af191:0deb46960ef1991"],f,f)),$async$ts)
 case 10:k=b
 j=k.b
 if(j===200){i=J.S(B.y.aG(0,A.cG(A.cF(k.e).c.a.h(0,"charset")).aG(0,k.w)),"data")
@@ -83263,7 +83263,7 @@ m=m.e.Q.h(0,"name")
 p=q.a.e.ch
 o=A.aa(p).i("a7<1,aA<q,@>>")
 s=2
-return A.G(q.e.rz(A.ac(["room",n,"table",l,"table_description",k,"room_description",m,"naming_series","OR-.YYYY.-","status","Attending","customer","Defult Customer","pos_profile","Caissier","selling_price_list","Standard Selling","company","Jumpark","doctype","Table Order","entry_items",A.ai(new A.a7(p,new A.am_(),o),!0,o.i("aV.E"))],t.N,t.z)),$async$xw)
+return A.G(q.e.rz(A.ac(["room",n,"table",l,"table_description",k,"room_description",m,"naming_series","OR-.YYYY.-","status","Attending","customer","Defult Customer","pos_profile","Caissier","selling_price_list","Standard Selling","company","The Game Production","doctype","Table Order","entry_items",A.ai(new A.a7(p,new A.am_(),o),!0,o.i("aV.E"))],t.N,t.z)),$async$xw)
 case 2:return A.N(null,r)}})
 return A.O($async$xw,r)},
 zY(){var s=0,r=A.P(t.z),q=this,p,o,n
@@ -83498,7 +83498,7 @@ g=B.y.d9(A.ac(["status","Invoiced"],h,h))
 A.bI(A.bm(j.h(k,"orderId")))
 p=5
 s=8
-return A.G(A.att(A.cE(i),g,A.ac(["Content-Type","application/json","Authorization","token 1e36fdb116a0d37:cf66f1ad25b58ba"],h,h)),$async$pN)
+return A.G(A.att(A.cE(i),g,A.ac(["Content-Type","application/json","Authorization","token 8df95f63a3af191:0deb46960ef1991"],h,h)),$async$pN)
 case 8:n=b
 if(n.b===200){A.bI("Table Order status updated successfully")
 A.bI("response.statusCode"+B.h.k(n.b))

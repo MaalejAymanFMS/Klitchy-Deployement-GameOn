@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> fetchDataFromAPI() async {
     final headers = {
-      'Authorization': 'token 1e36fdb116a0d37:cf66f1ad25b58ba',
+      'Authorization': 'token 8df95f63a3af191:0deb46960ef1991',
     };
     final url =
         'https://erpnext-155835-0.cloudclusters.net/api/resource/User?fields=["first_name","email"]&filters=[["full_name", "LIKE", "%waiter%"]]';
