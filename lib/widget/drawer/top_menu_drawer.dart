@@ -30,11 +30,11 @@ class _TopMenuDrawerState extends State<TopMenuDrawer> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("klitchy restaurant", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20.fSize)),
+              Text("GameOn", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20.fSize)),
               SizedBox(
                 height: 5.v,
               ),
-              Text("Restaurant", style: TextStyle(fontWeight: FontWeight.normal, color: AppColors.secondaryTextColor, fontSize: 20.fSize)),
+              Text("Coffee shop", style: TextStyle(fontWeight: FontWeight.normal, color: AppColors.secondaryTextColor, fontSize: 20.fSize)),
             ],
           )
         ],

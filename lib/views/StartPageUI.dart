@@ -370,7 +370,7 @@ class StartPageUIState extends State<StartPageUI> {
                                                               Row(
                                                                 children: [
                                                                   Text(
-                                                                    "Choose the rotation: ",
+                                                                    "Rotate the table: ",
                                                                     style: TextStyle(
                                                                         fontSize:
                                                                             24.fSize),
@@ -522,7 +522,7 @@ class StartPageUIState extends State<StartPageUI> {
     setState(() {
       if (data is TableTwo) {
         addTable(
-            "T2-$index-${data.rotation}-${widget.appState.choosenRoom["name"]}",
+            "T2-$index-${data.rotation}-${widget.appState.choosenRoom["name"]}-$tableName",
             index,
             index,
             2,
@@ -530,7 +530,7 @@ class StartPageUIState extends State<StartPageUI> {
             widget.id);
       } else if (data is TableThree) {
         addTable(
-            "T3-$index-${data.rotation}-${widget.appState.choosenRoom["name"]}",
+            "T3-$index-${data.rotation}-${widget.appState.choosenRoom["name"]}-$tableName",
             index,
             index,
             3,
@@ -538,7 +538,7 @@ class StartPageUIState extends State<StartPageUI> {
             widget.id);
       } else if (data is TableFour) {
         addTable(
-            "T4-$index-${data.rotation}-${widget.appState.choosenRoom["name"]}",
+            "T4-$index-${data.rotation}-${widget.appState.choosenRoom["name"]}-$tableName",
             index,
             index,
             4,
@@ -546,7 +546,7 @@ class StartPageUIState extends State<StartPageUI> {
             widget.id);
       } else if (data is TableSix) {
         addTable(
-            "T6-$index-${data.rotation}-${widget.appState.choosenRoom["name"]}",
+            "T6-$index-${data.rotation}-${widget.appState.choosenRoom["name"]}-$tableName",
             index,
             index,
             6,
@@ -554,7 +554,7 @@ class StartPageUIState extends State<StartPageUI> {
             widget.id);
       } else if (data is TableEight) {
         addTable(
-            "T8-$index-${data.rotation}-${widget.appState.choosenRoom["name"]}",
+            "T8-$index-${data.rotation}-${widget.appState.choosenRoom["name"]}-$tableName",
             index,
             index,
             8,
@@ -629,6 +629,14 @@ class StartPageUIState extends State<StartPageUI> {
 
   GestureDetector gestureDetector(
       int index, Widget child, String id, String name) {
+        String n;
+        List<String> a = id.split("-");
+        if(a.length==5){
+          n = a[4];
+        }else{
+          n = name;
+        }
+        
     return GestureDetector(
       onDoubleTap: () {
         _handleDelete(index, child);
@@ -648,14 +656,14 @@ class StartPageUIState extends State<StartPageUI> {
                 child: Column(
                   children: [
                     Text(
-                      "table number: ${index + 1}",
+                      "table name: ${index + 1} - $n",
                       style: TextStyle(fontSize: 20.fSize),
                     ),
                     const Spacer(),
                     CustomButton(
                       text: "add order",
                       onTap: () {
-                        tableName = name;
+                        tableName = tableName;
                         tableId = id;
                         widget.appState.switchOrder();
                         Navigator.pop(context);
