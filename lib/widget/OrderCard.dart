@@ -25,6 +25,16 @@ class OrderCard extends StatefulWidget {
 class OrderCardState extends State<OrderCard> {
   @override
   Widget build(BuildContext context) {
+    List<String>? splitted=widget.order.tableNumber?.split("-");
+    String name;
+    print(splitted!.length);
+    if(splitted!.length==5){
+      name=splitted[5];
+    }else{
+      name=widget.order.name!;
+    }
+    print(widget.order.tableNumber);
+    print(name);
     return Card(
       color: Colors.white,
       child: SingleChildScrollView(
@@ -36,9 +46,9 @@ class OrderCardState extends State<OrderCard> {
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  "Order of table : ${widget.order.tableNumber}",
+                  "Order of table : $name",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                     color: whichBTN == "cmd"
                         ? Colors.white

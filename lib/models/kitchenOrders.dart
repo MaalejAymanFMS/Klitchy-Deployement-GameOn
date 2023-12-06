@@ -17,11 +17,12 @@ class EntryItem {
   double amount;
   int quantity;
   String notes;
-
+  String item_group;
   EntryItem({
     required this.itemName,
     required this.amount,
     required this.quantity,
     required this.notes,
+    required this.item_group,
   });
 }

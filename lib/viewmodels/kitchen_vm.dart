@@ -51,6 +51,7 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
               amount: item['amount'] as double,
               quantity: item['qty'] as int,
               notes: item['notes'] as String,
+              item_group: item['item_group'] as String
             );
           }).toList();
 
@@ -114,6 +115,7 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
             amount: item['amount'] as double,
             quantity: item['qty'] as int,
             notes: item['notes'] as String,
+            item_group: item['item_group'] as String
           );
         }).toList();
 
@@ -182,6 +184,7 @@ inPrgressOrders = uniqueOrders.toList();
                                   (item['amount'] as num?)?.toDouble() ?? 0.0,
                               quantity: (item['qty'] as num?)?.toInt() ?? 0,
                               notes: item['notes'] as String? ?? "",
+                              item_group: item['item_group'] as String
                             ))
                         .toList();
 
@@ -245,6 +248,7 @@ inPrgressOrders = uniqueOrders.toList();
                                   (item['amount'] as num?)?.toDouble() ?? 0.0,
                               quantity: (item['qty'] as num?)?.toInt() ?? 0,
                               notes: item['notes'] as String? ?? "",
+                              item_group: item['item_group'] as String
                             ))
                         .toList();
 
@@ -304,20 +308,21 @@ inPrgressOrders = uniqueOrders.toList();
         final jsonBody = json.decode(orderResponse.body);
         final dataDetails = jsonBody['data'];
 
-        final List<EntryItem> entryItems =
+        final Iterable<EntryItem> entryItems =
             (dataDetails['entry_items'] as List<dynamic>).map((item) {
           return EntryItem(
             itemName: item['item_name'] as String,
             amount: item['amount'] as double,
             quantity: item['qty'] as int,
             notes: item['notes'] as String,
+            item_group: item['item_group'] as String
           );
-        }).toList();
+        }).toList().where((element) => element.item_group!="games");
 
         final order = Order(
           status: "done",
           tableNumber: dataDetails['table_description'] as String,
-          items: entryItems,
+          items: entryItems.toList(),
         );
         print(order);
         //inPrgressOrders.remove(order);

@@ -55,7 +55,7 @@ class StartPageUIState extends State<StartPageUI> {
   DeleteTable? res;
   List<double> tableRotation = [0, 90, 180, 270];
   int currentIndex = 0;
-  String tableName = '';
+  String tableName="";
   String tableId = '';
   bool _dataFetched = false;
   String _fetchedRoomName = "false";
@@ -663,7 +663,7 @@ class StartPageUIState extends State<StartPageUI> {
                     CustomButton(
                       text: "add order",
                       onTap: () {
-                        tableName = tableName;
+                        tableName = name;
                         tableId = id;
                         widget.appState.switchOrder();
                         Navigator.pop(context);

@@ -105,6 +105,7 @@ class _RightDrawerState extends State<RightDrawer> {
     for (var item in widget.appState.entryItems) {
       widget.appState.updateEntryItemStatus(item.item_code!, "Sent");
     }
+    print(widget.tableName);
     Map<String, dynamic> body = {
       "room": widget.appState.choosenRoom["id"],
       "table": widget.tableName,
