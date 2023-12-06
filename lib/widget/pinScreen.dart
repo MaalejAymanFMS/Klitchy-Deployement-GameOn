@@ -48,8 +48,8 @@ class _PinScreenState extends State<PinScreen> {
         margin: const EdgeInsets.all(16.0),
         child: Container(
           padding: const EdgeInsets.all(16.0),
-          width: 450.h,
-          height: 570.v,
+          width: 700.h,
+          height: 700.v,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
