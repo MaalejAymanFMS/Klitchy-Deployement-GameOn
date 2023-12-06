@@ -209,7 +209,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 5.v),
+            padding: EdgeInsets.only(top: 0.v),
             child: Row(
               children: [
                 InkWell(
