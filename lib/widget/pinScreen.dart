@@ -74,7 +74,7 @@ class _PinScreenState extends State<PinScreen> {
                     ),
                 ],
               ),
-              SizedBox(height: 20.v),
+              
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -83,7 +83,7 @@ class _PinScreenState extends State<PinScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: deviceSize.height * 0.01),
+              
               Container(
                 // margin: const EdgeInsets.only(right: 10.0),
                 child: Row(
@@ -93,14 +93,14 @@ class _PinScreenState extends State<PinScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: deviceSize.height * 0.01),
+              
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   for (int i = 7; i <= 9; i++) keyboardButton('$i'),
                 ],
               ),
-              SizedBox(height: deviceSize.height * 0.01),
+              
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -152,7 +152,7 @@ class _PinScreenState extends State<PinScreen> {
                         style: TextStyle(
                             fontSize: 20.fSize, color: AppColors.dark01Color)),
                   ),
-                  SizedBox(width: 20.h),
+                  
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.lightColor,
@@ -180,7 +180,7 @@ class _PinScreenState extends State<PinScreen> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.lightColor,
-            padding: EdgeInsets.symmetric(horizontal: 40.h, vertical: 20.v),
+            
             textStyle: TextStyle(fontSize: 30.fSize, fontWeight: FontWeight.bold)),
         onPressed: () => addPin(label),
         child: Text(label,
