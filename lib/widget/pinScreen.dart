@@ -47,7 +47,7 @@ class _PinScreenState extends State<PinScreen> {
         elevation: 8.0,
         margin: const EdgeInsets.all(16.0),
         child: Container(
-          padding: const EdgeInsets.all(16.0),
+          
           width: 700.h,
           height: 700.v,
           child: Column(
@@ -74,40 +74,33 @@ class _PinScreenState extends State<PinScreen> {
                     ),
                 ],
               ),
-              SizedBox(height: 20.v),
-              Container(
-                child: Row(
+ Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     for (int i = 1; i <= 3; i++) keyboardButton('$i'),
                   ],
                 ),
-              ),
-              SizedBox(height: deviceSize.height * 0.01),
-              Container(
-                // margin: const EdgeInsets.only(right: 10.0),
-                child: Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     for (int i = 4; i <= 6; i++) keyboardButton('$i'),
                   ],
                 ),
-              ),
-              SizedBox(height: deviceSize.height * 0.01),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   for (int i = 7; i <= 9; i++) keyboardButton('$i'),
                 ],
               ),
-              SizedBox(height: deviceSize.height * 0.01),
+              
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   for (int i = 0; i <=0; i++) keyboardButton('$i'),
                 ],
               ),
-              SizedBox(height: deviceSize.height * 0.02),
+              
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
