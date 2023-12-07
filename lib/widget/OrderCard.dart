@@ -29,7 +29,7 @@ class OrderCardState extends State<OrderCard> {
     String name;
     print(splitted!.length);
     if(splitted!.length==5){
-      name=splitted[5];
+      name=splitted[4];
     }else{
       name=widget.order.name!;
     }

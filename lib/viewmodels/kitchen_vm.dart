@@ -44,7 +44,7 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
           final jsonBody = json.decode(orderResponse.body);
           final dataDetails = jsonBody['data'];
 
-          final List<EntryItem> entryItems =
+          final Iterable<EntryItem> entryItems =
               (dataDetails['entry_items'] as List<dynamic>).map((item) {
             return EntryItem(
               itemName: item['item_name'] as String,
@@ -53,13 +53,13 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
               notes: item['notes'] as String,
               item_group: item['item_group'] as String
             );
-          }).toList();
+          }).toList().where((element) => element.item_group!="games");
 
           final order = Order(
             status: "toStart",
             tableNumber: dataDetails['table_description'] as String,
             name: dataDetails['name'] as String,
-            items: entryItems,
+            items: entryItems.toList(),
           );
           final test = orders.firstWhere(
               (element) => element.name == dataDetails['name'] as String,
@@ -108,7 +108,7 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
         final jsonBody = json.decode(orderResponse.body);
         final dataDetails = jsonBody['data'];
 
-        final List<EntryItem> entryItems =
+        final Iterable<EntryItem> entryItems =
             (dataDetails['entry_items'] as List<dynamic>).map((item) {
           return EntryItem(
             itemName: item['item_name'] as String,
@@ -117,12 +117,12 @@ class KitchenVMState extends State<KitchenVM> implements KitchenInteractor {
             notes: item['notes'] as String,
             item_group: item['item_group'] as String
           );
-        }).toList();
+        }).toList().where((element) => element.item_group!="games");
 
         final order = Order(
           status: "progress",
           tableNumber: dataDetails['table_description'] as String,
-          items: entryItems,
+          items: entryItems.toList(),
         );
         //orders.remove(order);
         //inPrgressOrders.add(order);
@@ -240,9 +240,9 @@ inPrgressOrders = uniqueOrders.toList();
               if (orderResponse.statusCode == 200) {
                 final Map<String, dynamic> orderData =
                     json.decode(orderResponse.body) as Map<String, dynamic>;
-                final itemsList =
+                final Iterable<EntryItem> itemsList =
                     (orderData['data']['entry_items'] as List<dynamic>?)
-                        ?.map((item) => EntryItem(
+                        !.map((item) => EntryItem(
                               itemName: item['item_name'] as String? ?? "",
                               amount:
                                   (item['amount'] as num?)?.toDouble() ?? 0.0,
@@ -250,14 +250,14 @@ inPrgressOrders = uniqueOrders.toList();
                               notes: item['notes'] as String? ?? "",
                               item_group: item['item_group'] as String
                             ))
-                        .toList();
+                        .toList().where((element) => element.item_group!="games");
 
                 final order = Order(
                   status: "done",
                   name: order_id,
                   tableNumber:
                       orderData['data']['table_description'] as String? ?? "",
-                  items: itemsList,
+                  items: itemsList?.toList(),
                 );
                 uniqueOrders.add(order);
                 finishedOrders = uniqueOrders.toList();
