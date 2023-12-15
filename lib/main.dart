@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
               trackVisibility: MaterialStateProperty.all(true),
             ),
         ),
-        home: SplashScreen(),
+        home: const SplashScreen(),
 
         routes: PageRoutes().routes(),
         debugShowCheckedModeBanner: false,

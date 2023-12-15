@@ -65,7 +65,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
       color: AppColors.primaryColor,
       child: Padding(
         padding: EdgeInsets.only(top: 10.v),
-        child: Column(
+        child: ListView(
           children: [
             TopMenuDrawer(widget.onTap),
             SizedBox(

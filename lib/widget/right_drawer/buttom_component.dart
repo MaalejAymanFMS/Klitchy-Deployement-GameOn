@@ -55,7 +55,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
   Widget build(BuildContext context) {
     return Container(
       width: 383.h,
-      height: 300.v,
+      height: 310.v,
       decoration: BoxDecoration(
         color: AppColors.itemsColor,
         borderRadius: BorderRadius.circular(10),
@@ -236,7 +236,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                           size: 30.fSize,
                         ),
                         SizedBox(
-                          width: 10.h,
+                          width: 5,
                         ),
                         Text(
                           "Print Ticket",

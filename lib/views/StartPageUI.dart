@@ -265,7 +265,7 @@ class StartPageUIState extends State<StartPageUI> {
       child: Row(
         children: [
           Container(
-              height: (152 * 5).v,
+              height: (152 * 6).v,
               width: (260 * 4).h,
               decoration: const BoxDecoration(
                 color: Color(0xFF0E1227),
@@ -309,7 +309,7 @@ class StartPageUIState extends State<StartPageUI> {
                                                       title: const Text(
                                                           "Table menu"),
                                                       content: SizedBox(
-                                                        height: 740.v,
+                                                        height: 760.v,
                                                         child: Form(
                                                           key: _formkey,
                                                           child: Column(
@@ -446,7 +446,7 @@ class StartPageUIState extends State<StartPageUI> {
                                                                     .itemsColor,
                                                                 child: VirtualKeyboard(
                                                                     height:
-                                                                        300.v,
+                                                                        315.v,
                                                                     textColor:
                                                                         Colors
                                                                             .white,
