@@ -58,7 +58,6 @@ class _RightDrawerState extends State<RightDrawer> {
           orderId = orderP1.dataP1![0].name!;
         });
         prefs.setString("orderId", orderId);
-        prefs.setString("tableId", widget.tableName);
         orders = orderP2.dataP2!.entryItems!;
         for (var order in orders) {
           widget.appState.addOrder(

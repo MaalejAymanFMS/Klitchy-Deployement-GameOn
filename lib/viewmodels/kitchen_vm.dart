@@ -172,6 +172,7 @@ inPrgressOrders = uniqueOrders.toList();
                   'Authorization': 'token 8df95f63a3af191:0deb46960ef1991'
                 },
               );
+
               if (orderResponse.statusCode == 200) {
                 final Map<String, dynamic> orderData =
                     json.decode(orderResponse.body) as Map<String, dynamic>;
