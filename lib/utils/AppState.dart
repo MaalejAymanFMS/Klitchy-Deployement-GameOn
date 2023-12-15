@@ -440,7 +440,7 @@ class AppState extends ChangeNotifier {
     if (number > 0) {
       final existingWidgetIndex = _entryItems.indexWhere(
         (widget) =>
-            widget.name == entryItem.name &&
+            widget.name == entryItem.name ||
             widget.item_code == entryItem.item_code,
       );
       print("item_code: ${entryItem.item_code}");
@@ -476,7 +476,7 @@ class AppState extends ChangeNotifier {
     final entryItemToUpdate = _entryItems.firstWhere(
       (entryItem) => entryItem.item_code == entryItemCode,
     );
-    if(entryItemToUpdate.status=="Attending" && status=="Sent"){
+    if((entryItemToUpdate.status=="Attending" || entryItemToUpdate.status=="") && status=="Sent"){
       entryItemToUpdate.status = status;
     }
     
