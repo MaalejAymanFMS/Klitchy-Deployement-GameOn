@@ -284,7 +284,7 @@ class StartPageUIState extends State<StartPageUI> {
                         Widget widget = _gridChildren[index];
                         return SizedBox(
                           width: 130.h,
-                          height: 140.v,
+                          height: 130.v,
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
@@ -309,7 +309,7 @@ class StartPageUIState extends State<StartPageUI> {
                                                       title: const Text(
                                                           "Table menu"),
                                                       content: SizedBox(
-                                                        height: 780.v,
+                                                        height: 760.v,
                                                         child: Form(
                                                           key: _formkey,
                                                           child: Column(
