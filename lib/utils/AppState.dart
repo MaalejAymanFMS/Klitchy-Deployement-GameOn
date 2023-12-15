@@ -476,7 +476,7 @@ class AppState extends ChangeNotifier {
     final entryItemToUpdate = _entryItems.firstWhere(
       (entryItem) => entryItem.item_code == entryItemCode,
     );
-    if(entryItemToUpdate.status=="attending" && status=="sent"){
+    if(entryItemToUpdate.status=="Attending" && status=="Sent"){
       entryItemToUpdate.status = status;
     }
     
