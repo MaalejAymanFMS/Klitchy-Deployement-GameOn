@@ -148,7 +148,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           body: jsonEncode(body));
       print(" ${response.statusCode}");
       if (response.statusCode == 200) {
-        print(" ${response.body}");
+        final response2 = await http.get(Uri.parse("http://127.0.0.1:8000/orders/stopTimer/${prefs.getString("tableId")}/"),
+          );
       } else {
         print(
             'Failed to update Table Order status. Status code: ${response.statusCode}');

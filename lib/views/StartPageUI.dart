@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'package:flutter/scheduler.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:klitchyapp/models/tables.dart';
 import 'package:klitchyapp/utils/AppState.dart';
@@ -117,6 +118,11 @@ class StartPageUIState extends State<StartPageUI> {
       if (widget.appState.numberOfTables > response.data!.length) {
         widget.appState.setNumberOfTables(response.data!.length);
       }
+      var dataTimer =await http.get(
+        Uri.parse("http://127.0.0.1:8000/api/tables/"));
+      print(dataTimer.body);
+      var jsonTimer = json.decode(dataTimer.body);
+      var a =jsonTimer[0]['table_id'];
       for (var i = widget.appState.numberOfTables;
           i < response.data!.length;
           i++) {
@@ -146,7 +152,7 @@ class StartPageUIState extends State<StartPageUI> {
               widget.appState.addTableTimer(TableTimer(
                 tableId: response.data![i].name,
                 tableName: response.data![i].description,
-                timer: "",
+                timer: jsonTimer[0].where((obj)=>obj.tableId),
               ));
             }
             if (parts[0] == "T3") {
@@ -165,7 +171,7 @@ class StartPageUIState extends State<StartPageUI> {
               widget.appState.addTableTimer(TableTimer(
                 tableId: response.data![i].name,
                 tableName: response.data![i].description,
-                timer: "",
+                timer: jsonTimer[0].toString(),
               ));
             }
             if (parts[0] == "T4") {
@@ -184,7 +190,7 @@ class StartPageUIState extends State<StartPageUI> {
               widget.appState.addTableTimer(TableTimer(
                 tableId: response.data![i].name,
                 tableName: response.data![i].description,
-                timer: "",
+                timer: jsonTimer[0].toString(),
               ));
             }
             if (parts[0] == "T6") {
@@ -202,7 +208,7 @@ class StartPageUIState extends State<StartPageUI> {
               widget.appState.addTableTimer(TableTimer(
                 tableId: response.data![i].name,
                 tableName: response.data![i].description,
-                timer: "",
+                timer: jsonTimer[0].toString(),
               ));
             }
             if (parts[0] == "T8") {
@@ -220,7 +226,7 @@ class StartPageUIState extends State<StartPageUI> {
               widget.appState.addTableTimer(TableTimer(
                 tableId: response.data![i].name,
                 tableName: response.data![i].description,
-                timer: "",
+                timer: jsonTimer[0].toString(),
               ));
             }
           }
