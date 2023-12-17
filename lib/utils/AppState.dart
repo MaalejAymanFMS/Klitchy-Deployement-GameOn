@@ -183,11 +183,7 @@ class AppState extends ChangeNotifier {
     double newDiscount = double.parse(discountNumber) / 100;
 
     if (newDiscount > 0.0) {
-      // _subtotal = _subtotalInitial;
-      // _tva = _tvaInitial;
-      // _total = _initialTotal;
       _discount = newDiscount;
-      // _discountTotal = _initialTotal * _discount;
       _subtotal = _subtotal * _discount;
       _tva = _tva * _discount;
       _total = _subtotal + _tva;
