@@ -145,9 +145,9 @@ class AppState extends ChangeNotifier {
       _tva -= orderWidget.price * 0.07;
       _total -= orderWidget.price;
     } else {
-      _tva -= orderWidget.price * 0.07 * _discount;
-      _subtotal -= (orderWidget.price - orderWidget.price * 0.07 ) * _discount;
-      _total -= orderWidget.price * _discount;
+      _subtotal -= orderWidget.price * (1-_discount) - (orderWidget.price * (1-_discount) * 0.07);
+      _tva -= orderWidget.price * (1-_discount) * 0.07;
+      _total -= orderWidget.price * (1-_discount);
     }
     if (_subtotal < 0) {
       _subtotal = 0.0;
@@ -184,8 +184,8 @@ class AppState extends ChangeNotifier {
 
     if (newDiscount > 0.0) {
       _discount = newDiscount;
-      _subtotal = _subtotal * _discount;
-      _tva = _tva * _discount;
+      _subtotal = _subtotal * (1-_discount);
+      _tva = _tva * (1-_discount);
       _total = _subtotal + _tva;
     } else {
       _discount = newDiscount;
