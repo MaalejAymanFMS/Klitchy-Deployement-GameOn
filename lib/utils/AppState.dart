@@ -140,14 +140,23 @@ class AppState extends ChangeNotifier {
         _orders.removeAt(existingWidgetIndex);
       }
     }
-    _subtotal -= orderWidget.price - (orderWidget.price * 0.07);
-    _tva -= orderWidget.price * 0.07;
-    _total -= orderWidget.price;
+    if(_discount == 0) {
+      _subtotal -= orderWidget.price - (orderWidget.price * 0.07);
+      _tva -= orderWidget.price * 0.07;
+      _total -= orderWidget.price;
+    } else {
+      _tva -= orderWidget.price * 0.07 * _discount;
+      _subtotal -= (orderWidget.price - orderWidget.price * 0.07 ) * _discount;
+      _total -= orderWidget.price * _discount;
+    }
     if (_subtotal < 0) {
       _subtotal = 0.0;
     }
     if (_tva < 0) {
       _tva = 0.0;
+    }
+    if (_total < 0) {
+      _total = 0.0;
     }
     notifyListeners();
   }
@@ -174,11 +183,11 @@ class AppState extends ChangeNotifier {
   void addDiscount(String discountNumber) {
 
     _discount = double.parse(discountNumber) / 100;
-    if (discount >= 0.0) {
+    if (_discount >= 0.0) {
       _discountTotal = discount;
       double discountAmount = _initialTotal * discount;
-      _subtotal = _subtotalInitial *(1-discount);
-      _tva=_tvaInitial*(1-discount);
+      _subtotal = _subtotal * discount;
+      _tva=_tva* discount;
       _total = _subtotal + _tva;
     }
     if(discountNumber == "-1"){

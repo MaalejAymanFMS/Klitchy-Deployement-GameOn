@@ -157,7 +157,7 @@ class _TableTagState extends State<TableTag> {
               widget.appState.enableDelete();
               setState(() {
                 if (widget.appState.enabledDelete) {
-                  widget.appState.addDiscount("-1");
+                  // widget.appState.addDiscount("-1");
                   deleteColor = AppColors.redColor;
 
                 } else {
