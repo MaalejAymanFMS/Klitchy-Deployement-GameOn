@@ -127,9 +127,7 @@ class _RightDrawerState extends State<RightDrawer> {
       "doctype": "Table Order",
       "amount": widget.appState.total,
       "tax": widget.appState.tva,
-      "entry_items": widget.appState.entryItems
-          .map((entryMap) => entryMap.toJson())
-          .toList(),
+      "entry_items": widget.appState.entryItems,
     };
     await interactor.addOrder(body);
   }
@@ -138,14 +136,11 @@ class _RightDrawerState extends State<RightDrawer> {
     for (var item in widget.appState.entryItems) {
       widget.appState.updateEntryItemStatus(item.item_code!, "Sent");
     }
-    print("widget.appState.entryItems.length ${widget.appState.entryItems.length}");
     Map<String, dynamic> body = {
       "amount": widget.appState.total,
       "tax": widget.appState.tva,
       "discount": widget.appState.discount,
-      "entry_items": widget.appState.entryItems
-          .map((entryMap) => entryMap.toJson())
-          .toList(),
+      "entry_items": widget.appState.entryItems,
     };
     await interactor.updateOrder(body, orderId);
   }

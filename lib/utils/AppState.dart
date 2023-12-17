@@ -451,18 +451,20 @@ class AppState extends ChangeNotifier {
   void addEntryItem(double number, EntryItem entryItem) {
     if (number > 0) {
       final existingWidgetIndex = _entryItems.indexWhere(
-        (widget) =>
-            widget.name == entryItem.name ||
+            (widget) =>
+        widget.name == entryItem.name &&
             widget.item_code == entryItem.item_code,
       );
+
       if (existingWidgetIndex != -1) {
-        _entryItems.elementAt(existingWidgetIndex).qty = number;
+        _entryItems[existingWidgetIndex].qty = number;
       } else {
         _entryItems.add(entryItem);
       }
     }
     notifyListeners();
   }
+
 
 
 
