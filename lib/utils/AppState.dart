@@ -194,8 +194,8 @@ class AppState extends ChangeNotifier {
       _subtotal = 0;
       for (var order in _orders) {
         _total += order.price * order.number;
-        _subtotal += order.price - order.price * 0.07;
-        _tva += order.price * 0.07;
+        _subtotal += (order.price - order.price * 0.07) * order.number;
+        _tva += order.price * 0.07 * order.number;
       }
     }
 
