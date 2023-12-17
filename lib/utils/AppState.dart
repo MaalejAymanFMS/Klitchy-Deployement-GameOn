@@ -177,22 +177,30 @@ class AppState extends ChangeNotifier {
 
   ///discount
   double _discount = 0.0;
-  double _lastDiscount = 0.0;
-
   double get discount => _discount;
 
   void addDiscount(String discountNumber) {
     double newDiscount = double.parse(discountNumber) / 100;
 
-    if (newDiscount >= 0.0) {
-      _subtotal = _subtotalInitial;
-      _tva = _tvaInitial;
-      _total = _initialTotal;
+    if (newDiscount > 0.0) {
+      // _subtotal = _subtotalInitial;
+      // _tva = _tvaInitial;
+      // _total = _initialTotal;
       _discount = newDiscount;
-      _discountTotal = _initialTotal * _discount;
-      _subtotal = _subtotal * (1 - _discount);
-      _tva = _tva * (1 - _discount);
+      // _discountTotal = _initialTotal * _discount;
+      _subtotal = _subtotal * _discount;
+      _tva = _tva * _discount;
       _total = _subtotal + _tva;
+    } else {
+      _discount = newDiscount;
+      _total = 0;
+      _tva = 0;
+      _subtotal = 0;
+      for (var order in _orders) {
+        _total += order.price * order.number;
+        _subtotal += order.price - order.price * 0.07;
+        _tva += order.price * 0.07;
+      }
     }
 
     _total = double.parse(_total.toStringAsFixed(2));
