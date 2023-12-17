@@ -184,10 +184,13 @@ class AppState extends ChangeNotifier {
 
     if (newDiscount > 0.0) {
       _discount = newDiscount;
+      _total = 0;
+      _tva = 0;
+      _subtotal = 0;
       for (var order in _orders) {
-        _total = order.price * order.number * (1 - discount);
-        _subtotal = ((order.price - order.price * 0.07) * order.number) * (1 - discount);
-        _tva = (order.price * 0.07 * order.number)* (1 - discount);
+        _total += order.price * order.number * (1 - discount);
+        _subtotal += ((order.price - order.price * 0.07) * order.number) * (1 - discount);
+        _tva += (order.price * 0.07 * order.number)* (1 - discount);
       }
 
     } else {
