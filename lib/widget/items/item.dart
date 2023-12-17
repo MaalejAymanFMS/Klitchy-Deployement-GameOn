@@ -115,6 +115,7 @@ class ItemState extends State<Item> {
                 rate: widget.price,
                 price_list_rate: widget.price,
                 amount: numberOfItems * widget.price,
+                item_name: widget.name,
                 table_description: "${appState.choosenRoom["name"]} (Table)",
                 doctype: "Order Entry Item"));
       },

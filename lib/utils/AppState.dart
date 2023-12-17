@@ -139,6 +139,12 @@ class AppState extends ChangeNotifier {
       if (_orders.elementAt(existingWidgetIndex).number == 0) {
         _orders.removeAt(existingWidgetIndex);
       }
+      final entryItemIndex = _entryItems.indexWhere(
+            (entryItem) => entryItem.item_name == orderWidget.name,
+      );
+      if (entryItemIndex != -1) {
+        _entryItems.removeAt(entryItemIndex);
+      }
     }
     if(_discount == 0) {
       _subtotal -= orderWidget.price - (orderWidget.price * 0.07);
@@ -433,9 +439,7 @@ class AppState extends ChangeNotifier {
   void deleteTableTimer(String id) {
     final existingWidgetIndex =
         _tableTimer.indexWhere((widget) => widget.tableId == id);
-    print(_tableTimer);
     _tableTimer.removeAt(existingWidgetIndex);
-    print(_tableTimer);
     notifyListeners();
   }
 
@@ -451,24 +455,12 @@ class AppState extends ChangeNotifier {
             widget.name == entryItem.name ||
             widget.item_code == entryItem.item_code,
       );
-      print("item_code: ${entryItem.item_code}");
       if (existingWidgetIndex != -1) {
         _entryItems.elementAt(existingWidgetIndex).qty = number;
       } else {
         _entryItems.add(entryItem);
       }
-      print("_entryItems: $_entryItems");
     }
-    // else {
-    //   final existingWidgetIndex = _entryItems.indexWhere(
-    //         (widget) =>
-    //     widget.name == entryItem.name &&
-    //         widget.item_code == entryItem.item_code,
-    //   );
-    //   print(entryItems);
-    //   _entryItems.removeAt(existingWidgetIndex);
-    //   print(entryItems);
-    // }
     notifyListeners();
   }
 
@@ -487,7 +479,8 @@ class AppState extends ChangeNotifier {
     if((entryItemToUpdate.status=="Attending" || entryItemToUpdate.status=="") && status=="Sent"){
       entryItemToUpdate.status = status;
     }
-    
+    print("entryItemToUpdate.status : ${entryItemToUpdate.status} ${entryItemToUpdate.item_name}");
+
     notifyListeners();
   }
 

@@ -94,9 +94,6 @@ class _RightDrawerState extends State<RightDrawer> {
                       "${widget.appState.choosenRoom["name"]} (Table)",
                   doctype: "Order Entry Item"));
         }
-        print(widget.appState.entryItems
-            .map((entryMap) => entryMap.toJson())
-            .toList());
       }
     }
   }
@@ -105,7 +102,17 @@ class _RightDrawerState extends State<RightDrawer> {
     for (var item in widget.appState.entryItems) {
       widget.appState.updateEntryItemStatus(item.item_code!, "Sent");
     }
-    print(widget.tableName);
+  }
+
+  Future<void> updateOrder() async {
+    for (var item in widget.appState.entryItems) {
+      widget.appState.updateEntryItemStatus(item.item_code!, "Sent");
+    }
+  }
+  Future<void> addOrderss() async {
+    for (var item in widget.appState.entryItems) {
+      widget.appState.updateEntryItemStatus(item.item_code!, "Sent");
+    }
     Map<String, dynamic> body = {
       "room": widget.appState.choosenRoom["id"],
       "table": widget.tableName,
@@ -127,10 +134,11 @@ class _RightDrawerState extends State<RightDrawer> {
     await interactor.addOrder(body);
   }
 
-  Future<void> updateOrder() async {
+  Future<void> updateOrderr() async {
     for (var item in widget.appState.entryItems) {
       widget.appState.updateEntryItemStatus(item.item_code!, "Sent");
     }
+    print("widget.appState.entryItems.length ${widget.appState.entryItems.length}");
     Map<String, dynamic> body = {
       "amount": widget.appState.total,
       "tax": widget.appState.tva,
@@ -140,7 +148,6 @@ class _RightDrawerState extends State<RightDrawer> {
           .toList(),
     };
     await interactor.updateOrder(body, orderId);
-
   }
 
   @override
@@ -158,8 +165,7 @@ class _RightDrawerState extends State<RightDrawer> {
         padding: EdgeInsets.symmetric(vertical: 10.v),
         child: Column(
           children: [
-            TableTag(widget.appState, widget.tableName,
-                orderId.isEmpty ? addOrders : updateOrder),
+            TableTag(widget.appState, widget.tableName, addOrders),
             Expanded(
               child: widget.appState.orders.isNotEmpty
                   ? SingleChildScrollView(
@@ -180,20 +186,6 @@ class _RightDrawerState extends State<RightDrawer> {
                                   if (widget.appState.enabledDelete) {
                                     widget.appState
                                         .deleteOrder(order.number, order);
-                                    print("order number ${order.number}");
-                                    // widget.appState.addEntryItem(order.number.toDouble(), EntryItem(
-                                    //     identifier: "identifier",
-                                    //     parentfield: "entry_items",
-                                    //     parenttype: "Table Order",
-                                    //     item_code: order.code,
-                                    //     status: "Attending",
-                                    //     notes: "",
-                                    //     qty: order.number.toDouble(),
-                                    //     rate: order.price / order.number,
-                                    //     price_list_rate: order.price,
-                                    //     amount: order.price,
-                                    //     table_description: "${widget.appState.choosenRoom["name"]} (Table)",
-                                    //     doctype: "Order Entry Item"));
                                   }
                                 },
                                 child: order,
@@ -210,10 +202,10 @@ class _RightDrawerState extends State<RightDrawer> {
               onTap: () async {
 
                 if (orderId.isEmpty) {
-                  await addOrders();
+                  await addOrderss();
                   await fetchOrders();
                 } else {
-                  await updateOrder();
+                  await updateOrderr();
                   await fetchOrders();
                 }
 
