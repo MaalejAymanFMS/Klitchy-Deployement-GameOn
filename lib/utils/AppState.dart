@@ -90,6 +90,7 @@ class AppState extends ChangeNotifier {
         _initialTotal -=
             _orders.elementAt(existingWidgetIndex).number * orderWidget.price;
         _orders.elementAt(existingWidgetIndex).number = number;
+        _tva -= orderWidget.price * 0.07 * (orderWidget.number - 1);
       } else {
         _orders.add(orderWidget);
       }
