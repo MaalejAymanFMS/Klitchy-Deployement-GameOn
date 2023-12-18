@@ -244,18 +244,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   children: [
                     Center(
                       child: Container(
-                        padding: EdgeInsets.all(10),
-                        color: Color.fromARGB(255, 22, 26, 52),
+                        padding: const EdgeInsets.all(10),
+                        color: const Color.fromARGB(255, 22, 26, 52),
                         child: Column(
                           children: [
                             Container(
                               width: 460.h,
                               height: 86.v,
-                              color: Color.fromARGB(255, 134, 137, 154),
+                              color: const Color.fromARGB(255, 134, 137, 154),
                               child: Center(
                                 child: Text(
                                   'Total Amount: ${totalAmount.toStringAsFixed(3)} TND',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 24.0,
                                     fontWeight: FontWeight.bold,
                                     color: Color(0xFFf1eaff), // Font color
@@ -270,11 +270,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             Container(
                               width: deviceSize.width * 0.24,
                               height: deviceSize.height * 0.08,
-                              color: Color.fromARGB(255, 134, 137, 154),
+                              color: const Color.fromARGB(255, 134, 137, 154),
                               child: Center(
                                 child: Text(
                                   'Amount Given: ${amountGiven.toStringAsFixed(3)} TND',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 24.0,
                                     color: Color(0xFFf1eaff), // Font color
                                   ),
@@ -290,7 +290,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       width: deviceSize.width * 0.1,
                     ),
                     Container(
-                      color: Color.fromARGB(255, 22, 26, 52),
+                      color: const Color.fromARGB(255, 22, 26, 52),
                       padding: const EdgeInsets.all(16.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -302,13 +302,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.all(5),
+                                      margin: const EdgeInsets.all(5),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
                                           ElevatedButton(
                                             onPressed: () => onNumberKeyPressed("1"),
-                                            child: Text(
+                                            child: const Text(
                                               '1',
                                               style: TextStyle(
                                                   color: AppColors.dark01Color,
@@ -318,14 +318,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                               backgroundColor:
                                               AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
-                                              padding: EdgeInsets.all(16.0),
-                                              shape: RoundedRectangleBorder(),
+                                              padding: const EdgeInsets.all(16.0),
+                                              shape: const RoundedRectangleBorder(),
                                             ),
                                           ),
                                           SizedBox(width: deviceSize.width * 0.011),
                                           ElevatedButton(
                                             onPressed: () => onNumberKeyPressed("2"),
-                                            child: Text(
+                                            child: const Text(
                                               '2',
                                               style: TextStyle(
                                                   color: AppColors.dark01Color,
@@ -335,21 +335,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                               backgroundColor:
                                               AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
-                                              padding: EdgeInsets.all(16.0),
-                                              shape: RoundedRectangleBorder(),
+                                              padding: const EdgeInsets.all(16.0),
+                                              shape: const RoundedRectangleBorder(),
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.all(5),
+                                      margin: const EdgeInsets.all(5),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
                                           ElevatedButton(
                                             onPressed: () => onNumberKeyPressed("5"),
-                                            child: Text(
+                                            child: const Text(
                                               '5',
                                               style: TextStyle(
                                                   color: AppColors.dark01Color,
@@ -359,14 +359,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                               backgroundColor:
                                               AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
-                                              padding: EdgeInsets.all(16.0),
-                                              shape: RoundedRectangleBorder(),
+                                              padding: const EdgeInsets.all(16.0),
+                                              shape: const RoundedRectangleBorder(),
                                             ),
                                           ),
                                           SizedBox(width: deviceSize.width * 0.011),
                                           ElevatedButton(
                                             onPressed: () => onNumberKeyPressed("10"),
-                                            child: Text(
+                                            child: const Text(
                                               '10',
                                               style: TextStyle(
                                                   color: AppColors.dark01Color,
@@ -376,21 +376,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                               backgroundColor:
                                               AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
-                                              padding: EdgeInsets.all(16.0),
-                                              shape: RoundedRectangleBorder(),
+                                              padding: const EdgeInsets.all(16.0),
+                                              shape: const RoundedRectangleBorder(),
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.all(5),
+                                      margin: const EdgeInsets.all(5),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
                                           ElevatedButton(
                                             onPressed: () => onNumberKeyPressed("20"),
-                                            child: Text(
+                                            child: const Text(
                                               '20',
                                               style: TextStyle(
                                                   color: AppColors.dark01Color,
@@ -400,14 +400,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                               backgroundColor:
                                               AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
-                                              padding: EdgeInsets.all(16.0),
-                                              shape: RoundedRectangleBorder(),
+                                              padding: const EdgeInsets.all(16.0),
+                                              shape: const RoundedRectangleBorder(),
                                             ),
                                           ),
                                           SizedBox(width: deviceSize.width * 0.011),
                                           ElevatedButton(
                                             onPressed: () => onNumberKeyPressed("50"),
-                                            child: Text(
+                                            child: const Text(
                                               '50',
                                               style: TextStyle(
                                                   color: AppColors.dark01Color,
@@ -417,8 +417,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                               backgroundColor:
                                               AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
-                                              padding: EdgeInsets.all(16.0),
-                                              shape: RoundedRectangleBorder(),
+                                              padding: const EdgeInsets.all(16.0),
+                                              shape: const RoundedRectangleBorder(),
                                             ),
                                           ),
                                         ],
@@ -437,7 +437,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     border: Border.all(width: 2.0),
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  child: Center(
+                                  child: const Center(
                                     child: Text(
                                       'Clear',
                                       style: TextStyle(
@@ -455,7 +455,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             //height: deviceSize.height * 0.4,
                             // width: deviceSize.width * 0.27,
                             alignment: Alignment.bottomCenter,
-                            padding: EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.all(16.0),
                             decoration: BoxDecoration(
                               // Keypad background color
                               borderRadius: BorderRadius.circular(10.0),
@@ -471,13 +471,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Container(
-                                  margin: EdgeInsets.all(5),
+                                  margin: const EdgeInsets.all(5),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       ElevatedButton(
                                         onPressed: () => onNumberKeyPressed("1"),
-                                        child: Text(
+                                        child: const Text(
                                           '1',
                                           style: TextStyle(
                                               color: AppColors.dark01Color,
@@ -488,14 +488,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           AppColors.secondaryTextColor,
                                           minimumSize: Size(deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
-                                          padding: EdgeInsets.all(16.0),
-                                          shape: RoundedRectangleBorder(),
+                                          padding: const EdgeInsets.all(16.0),
+                                          shape: const RoundedRectangleBorder(),
                                         ),
                                       ),
                                       SizedBox(width: deviceSize.width * 0.011),
                                       ElevatedButton(
                                         onPressed: () => onNumberKeyPressed("2"),
-                                        child: Text(
+                                        child: const Text(
                                           '2',
                                           style: TextStyle(
                                               color: AppColors.dark01Color,
@@ -506,14 +506,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           AppColors.secondaryTextColor,
                                           minimumSize: Size(deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
-                                          padding: EdgeInsets.all(16.0),
-                                          shape: RoundedRectangleBorder(),
+                                          padding: const EdgeInsets.all(16.0),
+                                          shape: const RoundedRectangleBorder(),
                                         ),
                                       ),
                                       SizedBox(width: deviceSize.width * 0.011),
                                       ElevatedButton(
                                         onPressed: () => onNumberKeyPressed("3"),
-                                        child: Text(
+                                        child: const Text(
                                           '3',
                                           style: TextStyle(
                                               color: AppColors.dark01Color,
@@ -524,21 +524,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           AppColors.secondaryTextColor,
                                           minimumSize: Size(deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
-                                          padding: EdgeInsets.all(16.0),
-                                          shape: RoundedRectangleBorder(),
+                                          padding: const EdgeInsets.all(16.0),
+                                          shape: const RoundedRectangleBorder(),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.all(5),
+                                  margin: const EdgeInsets.all(5),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       ElevatedButton(
                                         onPressed: () => onNumberKeyPressed("4"),
-                                        child: Text(
+                                        child: const Text(
                                           '4',
                                           style: TextStyle(
                                               color: AppColors.dark01Color,
@@ -549,14 +549,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           AppColors.secondaryTextColor,
                                           minimumSize: Size(deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
-                                          padding: EdgeInsets.all(16.0),
-                                          shape: RoundedRectangleBorder(),
+                                          padding: const EdgeInsets.all(16.0),
+                                          shape: const RoundedRectangleBorder(),
                                         ),
                                       ),
                                       SizedBox(width: deviceSize.width * 0.011),
                                       ElevatedButton(
                                         onPressed: () => onNumberKeyPressed("5"),
-                                        child: Text(
+                                        child: const Text(
                                           '5',
                                           style: TextStyle(
                                               color: AppColors.dark01Color,
@@ -567,14 +567,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           AppColors.secondaryTextColor,
                                           minimumSize: Size(deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
-                                          padding: EdgeInsets.all(16.0),
-                                          shape: RoundedRectangleBorder(),
+                                          padding: const EdgeInsets.all(16.0),
+                                          shape: const RoundedRectangleBorder(),
                                         ),
                                       ),
                                       SizedBox(width: deviceSize.width * 0.011),
                                       ElevatedButton(
                                         onPressed: () => onNumberKeyPressed("6"),
-                                        child: Text(
+                                        child: const Text(
                                           '6',
                                           style: TextStyle(
                                               color: AppColors.dark01Color,
@@ -585,21 +585,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           AppColors.secondaryTextColor,
                                           minimumSize: Size(deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
-                                          padding: EdgeInsets.all(16.0),
-                                          shape: RoundedRectangleBorder(),
+                                          padding: const EdgeInsets.all(16.0),
+                                          shape: const RoundedRectangleBorder(),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.all(5),
+                                  margin: const EdgeInsets.all(5),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       ElevatedButton(
                                         onPressed: () => onNumberKeyPressed("7"),
-                                        child: Text(
+                                        child: const Text(
                                           '7',
                                           style: TextStyle(
                                               color: AppColors.dark01Color,
@@ -610,14 +610,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           AppColors.secondaryTextColor,
                                           minimumSize: Size(deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
-                                          padding: EdgeInsets.all(16.0),
-                                          shape: RoundedRectangleBorder(),
+                                          padding: const EdgeInsets.all(16.0),
+                                          shape: const RoundedRectangleBorder(),
                                         ),
                                       ),
                                       SizedBox(width: deviceSize.width * 0.01),
                                       ElevatedButton(
                                         onPressed: () => onNumberKeyPressed("8"),
-                                        child: Text(
+                                        child: const Text(
                                           '8',
                                           style: TextStyle(
                                               color: AppColors.dark01Color,
@@ -628,14 +628,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           AppColors.secondaryTextColor,
                                           minimumSize: Size(deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
-                                          padding: EdgeInsets.all(16.0),
-                                          shape: RoundedRectangleBorder(),
+                                          padding: const EdgeInsets.all(16.0),
+                                          shape: const RoundedRectangleBorder(),
                                         ),
                                       ),
                                       SizedBox(width: deviceSize.width * 0.011),
                                       ElevatedButton(
                                         onPressed: () => onNumberKeyPressed("9"),
-                                        child: Text(
+                                        child: const Text(
                                           '9',
                                           style: TextStyle(
                                               color: AppColors.dark01Color,
@@ -646,15 +646,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           AppColors.secondaryTextColor,
                                           minimumSize: Size(deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
-                                          padding: EdgeInsets.all(16.0),
-                                          shape: RoundedRectangleBorder(),
+                                          padding: const EdgeInsets.all(16.0),
+                                          shape: const RoundedRectangleBorder(),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Container(
-                                  margin: EdgeInsets.all(5),
+                                  margin: const EdgeInsets.all(5),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
@@ -665,7 +665,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             isTapCommar = true;
                                           }
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           ',',
                                           style: TextStyle(
                                               color: AppColors.dark01Color,
@@ -677,14 +677,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           AppColors.secondaryTextColor,
                                           minimumSize: Size(deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
-                                          padding: EdgeInsets.all(16.0),
-                                          shape: RoundedRectangleBorder(),
+                                          padding: const EdgeInsets.all(16.0),
+                                          shape: const RoundedRectangleBorder(),
                                         ),
                                       ),
                                       SizedBox(width: deviceSize.width * 0.01),
                                       ElevatedButton(
                                         onPressed: () => onNumberKeyPressed("0"),
-                                        child: Text(
+                                        child: const Text(
                                           '0',
                                           style: TextStyle(
                                               color: AppColors.dark01Color,
@@ -695,14 +695,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           AppColors.secondaryTextColor,
                                           minimumSize: Size(deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
-                                          padding: EdgeInsets.all(16.0),
-                                          shape: RoundedRectangleBorder(),
+                                          padding: const EdgeInsets.all(16.0),
+                                          shape: const RoundedRectangleBorder(),
                                         ),
                                       ),
                                       SizedBox(width: deviceSize.width * 0.011),
                                       ElevatedButton(
                                         onPressed: () => onNumberKeyPressed("00"),
-                                        child: Text(
+                                        child: const Text(
                                           '00',
                                           style: TextStyle(
                                               color: AppColors.dark01Color,
@@ -713,8 +713,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           AppColors.secondaryTextColor,
                                           minimumSize: Size(deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
-                                          padding: EdgeInsets.all(16.0),
-                                          shape: RoundedRectangleBorder(),
+                                          padding: const EdgeInsets.all(16.0),
+                                          shape: const RoundedRectangleBorder(),
                                         ),
                                       ),
                                     ],
@@ -744,7 +744,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                 widget.appState.switchRoom();
                                                 Navigator.pop(context);
                                               },
-                                              child: Text('OK'),
+                                              child: const Text('OK'),
                                             ),
                                           ],
                                         );
@@ -755,13 +755,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: Text('payment faild'),
+                                          title: const Text('payment faild'),
                                           actions: [
                                             TextButton(
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                               },
-                                              child: Text('OK'),
+                                              child: const Text('OK'),
                                             ),
                                           ],
                                         );
@@ -773,13 +773,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: Text('Insufficient amount given'),
+                                        title: const Text('Insufficient amount given'),
                                         actions: [
                                           TextButton(
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
-                                            child: Text('OK'),
+                                            child: const Text('OK'),
                                           ),
                                         ],
                                       );
@@ -793,7 +793,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   border: Border.all(width: 2.0),
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     'Done',
                                     style: TextStyle(
@@ -832,11 +832,11 @@ class NumberKey extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         number.toString(),
-        style: TextStyle(fontSize: 24.0),
+        style: const TextStyle(fontSize: 24.0),
       ),
       style: ElevatedButton.styleFrom(
-        minimumSize: Size(60.0, 60.0),
-        padding: EdgeInsets.all(16.0),
+        minimumSize: const Size(60.0, 60.0),
+        padding: const EdgeInsets.all(16.0),
       ),
     );
   }

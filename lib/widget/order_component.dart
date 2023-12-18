@@ -22,8 +22,15 @@ class OrderComponent extends StatelessWidget {
         return
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          child: SizedBox(
+          child: Container(
             width: 379.h,
+             decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(7),
+              ),
+              color:  Colors.red,
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

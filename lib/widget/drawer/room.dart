@@ -14,8 +14,18 @@ class Room extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: isSelected ? Colors.red.withOpacity(0.2) : Colors.transparent,
-        borderRadius: BorderRadius.circular(10),
+        color: isSelected ? Colors.red.withOpacity(0.6) : Colors.red.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(
+          10,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 1,
+            offset: const Offset(0, 1), // changes position of shadow
+          ),
+        ],
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 5.v, horizontal: 20.h),
@@ -33,8 +43,6 @@ class Room extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white, fontSize: 17.fSize),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +65,7 @@ class Room extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 25.fSize),
+            Icon(Icons.arrow_forward_ios, color: Colors.black, size: 25.fSize),
 
           ],
         ),

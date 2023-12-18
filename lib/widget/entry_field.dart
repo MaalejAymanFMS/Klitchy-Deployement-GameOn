@@ -62,7 +62,7 @@ class EntryField extends StatelessWidget {
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
             filled: true,
-            fillColor: Theme.of(context).backgroundColor,
+            fillColor: Colors.blueGrey.withOpacity(0.1),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,

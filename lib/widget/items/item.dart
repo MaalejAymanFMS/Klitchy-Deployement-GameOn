@@ -123,7 +123,7 @@ class ItemState extends State<Item> {
         width: 274.h,
         height: 134.v,
         decoration: BoxDecoration(
-          color: AppColors.itemsColor,
+          color: Colors.redAccent,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(

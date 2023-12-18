@@ -55,7 +55,7 @@ class _GestionDeTableState extends State<GestionDeTable> {
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
     return Scaffold(
-      backgroundColor: AppColors.primaryColor,
+      backgroundColor:  Colors.white,
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

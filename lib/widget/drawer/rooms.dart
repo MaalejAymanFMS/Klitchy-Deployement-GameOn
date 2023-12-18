@@ -40,7 +40,7 @@ class RoomsState extends State<Rooms> {
               Text(
                 "Rooms",
                 style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 17.fSize),
+                    TextStyle(fontWeight: FontWeight.bold, fontSize: 17.fSize),
               ),
               Text(
                 "${widget.numberOfRooms} rooms",
@@ -55,16 +55,19 @@ class RoomsState extends State<Rooms> {
             onTap: () {
               showDialog(
                   context: context,
+                  barrierColor: Colors.black.withOpacity(0.5),
+
+
                   builder: (_) {
                     return AlertDialog(
-                      title: Text("Rooms form", style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(fontSize: 20, color: Colors.black),),
+                      surfaceTintColor: Colors.white,
+                      title: const Text("Rooms form",),
                       content: SizedBox(
+
                           height: 570.v,
                           child: Form(
                             key: _formkey,
+
                             child: Column(children: [
                               EntryField(
                                 label: "Room name",
@@ -78,8 +81,8 @@ class RoomsState extends State<Rooms> {
                                   ? const Center(
                                       child: CircularProgressIndicator())
                                   : CustomButton(
+                                backgroundColor: Colors.red ,
                                       text: "add room",
-                                  backgroundColor: Colors.blueGrey,
                                   onTap: () async {
                                         if (_formkey.currentState!.validate()) {
                                           _formkey.currentState!.save();
@@ -110,10 +113,10 @@ class RoomsState extends State<Rooms> {
                               SizedBox(height: 20.v,),
                               const Spacer(),
                               Container(
-                                color: AppColors.itemsColor,
+                                color: Colors .red,
                                 child: VirtualKeyboard(
                                     height: 300.v,
-                                    textColor: Colors.white,
+                                    textColor: Colors.white ,
                                     type: VirtualKeyboardType.Alphanumeric,
                                     textController: widget.roomNameControllr),
                               ),
@@ -125,7 +128,7 @@ class RoomsState extends State<Rooms> {
                     );
                   });
             },
-            child: Icon(Icons.add, color: Colors.white, size: 30.fSize,),
+            child: Icon(Icons.add, size: 30.fSize,),
           ),
         ],
       ),

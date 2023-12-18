@@ -119,9 +119,9 @@ class RightDrawerVMState extends State<RightDrawerVM>
       try {
         final jsonResponse = json.decode(response.body);
         final data = OrdersP2.fromJson(jsonResponse);
-        print("waa ${data.dataP2?.name!}");
+        print(" ${data.dataP2?.name!}");
         print(
-            "waa ${data.dataP2?.entryItems!.map((entryMap) => entryMap.toJson()).toList()}");
+            " ${data.dataP2?.entryItems!.map((entryMap) => entryMap.toJson()).toList()}");
         return data;
       } catch (e) {
         print('Error parsing JSON: $e');

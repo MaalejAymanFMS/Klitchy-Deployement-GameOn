@@ -19,7 +19,7 @@ class _LeftDrawerState extends State<LeftDrawer> {
 
   void addRoom() {
     setState(() {
-      _room.insert(0,Room(roomNameController.text, id, true));
+      _room.insert(0, Room(roomNameController.text, id, true));
       widget.appState.chooseRoom(_room[0].title, _room[0].id);
       widget.appState.setNumberOfTables(0);
     });
@@ -27,17 +27,18 @@ class _LeftDrawerState extends State<LeftDrawer> {
 
   void fetchRooms() async {
     Map<String, dynamic> params = {
-      "fields": ["name","description", "type"],
-      "filters": [["type", "LIKE", "Room"]],
+      "fields": ["name", "description", "type"],
+      "filters": [
+        ["type", "LIKE", "Room"]
+      ],
     };
     var response = await interactor.getAllRooms(params);
     for (var i = 0; i < response.data!.length; i++) {
-      if(response.data![i].type == 'Room') {
+      if (response.data![i].type == 'Room') {
         setState(() {
-          if(response.data![i].description! != "Terrasse") {
-            _room.add(
-                Room(response.data![i].description!,
-                    response.data![i].name!, false));
+          if (response.data![i].description! != "Terrasse") {
+            _room.add(Room(response.data![i].description!,
+                response.data![i].name!, false));
           }
         });
       }
@@ -57,63 +58,75 @@ class _LeftDrawerState extends State<LeftDrawer> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200.h,
-      color: AppColors.primaryColor,
-      child: Padding(
-        padding: EdgeInsets.only(top: 10.v),
-        child: ListView(
-          children: [
-            TopMenuDrawer(widget.onTap),
-            SizedBox(
-              height: 40.v,
-            ),
-            Divider(
-              height: 1.v,
-              thickness: 1,
-              color: Colors.black,
-            ),
-            RoomVM(addRoom, _room.length, roomNameController, handleIdChange),
-            Divider(
-              height: 1.v,
-              thickness: 1,
-              color: Colors.black,
-            ),
-            SizedBox(
-              height: 40.v,
-            ),
-            Column(
-              children: _room.asMap().entries.map((entry) {
-                final index = entry.key;
-                final room = entry.value;
-                return InkWell(
-                  onTap: () async {
-                    setState(() {
-                      selectedRoomIndex = index;
-                    });
-                    widget.appState.chooseRoom(room.title, room.id);
-                    widget.appState.switchRoom();
-                    widget.appState.switchCheckoutOrder();
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                      prefs.remove("orderId");
-                    print(widget.appState.choosenRoom);
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.v),
-                    child: Room(
-                      room.title,
-                      room.id,
-                      selectedRoomIndex == index, // Pass isSelected
-                    ),
+      width: 383.h,
+      height: 887.v,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+         // box shadow only right
+        boxShadow: [
+          BoxShadow(
+            color: Colors.red.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 1,
+            offset: const Offset(0, 1), // changes position of shadow
+          ),
+        ],
+      ),
+      child: ListView(
+        padding: const EdgeInsets.all(10),
+        children: [
+          TopMenuDrawer(widget.onTap),
+          SizedBox(
+            height: 40.v,
+          ),
+          Divider(
+            height: 1.v,
+            thickness: 1,
+            color: Colors.black,
+          ),
+          RoomVM(addRoom, _room.length, roomNameController, handleIdChange),
+          Divider(
+            height: 1.v,
+            thickness: 1,
+            color: Colors.black,
+          ),
+          SizedBox(
+            height: 40.v,
+          ),
+          Column(
+            children: _room.asMap().entries.map((entry) {
+              final index = entry.key;
+              final room = entry.value;
+              return InkWell(
+                onTap: () async {
+                  setState(() {
+                    selectedRoomIndex = index;
+                  });
+                  widget.appState.chooseRoom(room.title, room.id);
+                  widget.appState.switchRoom();
+                  widget.appState.switchCheckoutOrder();
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.remove("orderId");
+                  print(widget.appState.choosenRoom);
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.v),
+                  child: Room(
+                    room.title,
+                    room.id,
+                    selectedRoomIndex == index, // Pass isSelected
                   ),
-                );
-              }).toList(),
-            ),
-          ],
-        ),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
       ),
     );
   }

@@ -32,9 +32,9 @@ class CustomButton extends StatelessWidget {
         side: MaterialStateProperty.all(
           BorderSide(color: backgroundColor != null ?
           disabledButton == false ?
-          Colors.grey.withOpacity(0.2) : backgroundColor!.withOpacity(0.5)
+          Colors.red.withOpacity(0.2) : backgroundColor!.withOpacity(0.5)
               :
-          AppColors.primaryColor
+          AppColors.redColor
           ),
         ),
         shape: MaterialStateProperty.all(
@@ -73,18 +73,7 @@ class CustomButton extends StatelessWidget {
               // maxLines: 1,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              style: textStyle ??
-                  Theme.of(context).textTheme.bodyText1?.copyWith(
-                    fontSize: 16.fSize,
-                    color: backgroundColor !=
-                        Theme.of(context).scaffoldBackgroundColor
-                        ? Theme.of(context).scaffoldBackgroundColor
-                        : Theme.of(context).cardColor,
-                    fontWeight: backgroundColor !=
-                        Theme.of(context).scaffoldBackgroundColor
-                        ? null
-                        : FontWeight.w400,
-                  ),
+
             ),
           ),
           if (icon != null)

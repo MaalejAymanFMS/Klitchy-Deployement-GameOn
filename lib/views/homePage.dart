@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     final headers = {
       'Authorization': 'token 8df95f63a3af191:0deb46960ef1991',
     };
-    final url =
+    const url =
         'https://erpnext-155835-0.cloudclusters.net/api/resource/User?fields=["first_name","email"]&filters=[["full_name", "LIKE", "%waiter%"]]';
 
     try {

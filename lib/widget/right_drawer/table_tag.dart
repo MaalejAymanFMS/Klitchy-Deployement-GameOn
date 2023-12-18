@@ -44,10 +44,18 @@ class _TableTagState extends State<TableTag> {
   Widget build(BuildContext context) {
     return Container(
       width: 383.h,
-      height: 94.v,
+      height:90.v,
       decoration: BoxDecoration(
-        color: AppColors.itemsColor,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 1,
+            offset: const Offset(0, 1), // changes position of shadow
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -72,7 +80,7 @@ class _TableTagState extends State<TableTag> {
                           "Table ${widget.tableName ?? "2"}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Colors.black,
                               fontSize: 15.fSize),
                         ),
                         SizedBox(
@@ -115,7 +123,7 @@ class _TableTagState extends State<TableTag> {
                   ),
                   color: widget.appState.enableColorDiscount,
                 ),
-              child: Center(child: Text("%", style: TextStyle(color: Colors.white, fontSize: 20.fSize),))
+              child: Center(child: Text("%", style: TextStyle(color: Colors.black, fontSize: 20.fSize),))
               // Image.asset(
               //   "assets/images/tag.png",
               //   color: Colors.white,
@@ -146,7 +154,7 @@ class _TableTagState extends State<TableTag> {
               ),
               child: Image.asset(
                 "assets/images/modify.png",
-                color: Colors.white,
+                color: Colors.black,
                 scale: 2.2.fSize,
               ),
             ),
@@ -202,7 +210,7 @@ class _TableTagState extends State<TableTag> {
               ),
               child: Image.asset(
                 "assets/images/trash.png",
-                color: Colors.white,
+                color: Colors.black,
                 scale: 2.2.fSize,
               ),
             ),
@@ -239,14 +247,14 @@ class _TableTagState extends State<TableTag> {
                     orderDiscount.clear();
                     Navigator.pop(context);
                   },
-                  backgroundColor: Colors.blueGrey,
+                  backgroundColor: Colors.red,
                 ),
                 SizedBox(
                   height: 20.v,
                 ),
                 const Spacer(),
                 Container(
-                  color: AppColors.itemsColor,
+                  color: Colors.red,
                   child: VirtualKeyboard(
                       height: 300.v,
                       textColor: Colors.white,

@@ -265,14 +265,23 @@ class StartPageUIState extends State<StartPageUI> {
       child: Row(
         children: [
           Container(
-              height: (152 * 6).v,
+              height:  887.v,
               width: (260 * 4).h,
-              decoration: const BoxDecoration(
-                color: Color(0xFF0E1227),
-                borderRadius: BorderRadius.all(
+              decoration:  BoxDecoration(
+                color: Colors.white,
+                borderRadius: const BorderRadius.all(
                   Radius.circular(18),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 1,
+                    offset: const Offset(0, 1), // changes position of shadow
+                  ),
+                ],
               ),
+              margin: const EdgeInsets.only(top:10 ) ,
               child: widget.room
                   ? GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -302,10 +311,15 @@ class StartPageUIState extends State<StartPageUI> {
                                           onPressed: () {
                                             showDialog(
                                               context: context,
+
                                               builder: (_) {
                                                 return StatefulBuilder(
+
                                                   builder: (context, setState) {
+
                                                     return AlertDialog(
+                                                      backgroundColor: Colors.white ,
+                                                      surfaceTintColor: Colors.white,
                                                       title: const Text(
                                                           "Table menu"),
                                                       content: SizedBox(
@@ -442,8 +456,8 @@ class StartPageUIState extends State<StartPageUI> {
                                                               ),
                                                               const Spacer(),
                                                               Container(
-                                                                color: AppColors
-                                                                    .itemsColor,
+                                                                color: Colors
+                                                                    .red,
                                                                 child: VirtualKeyboard(
                                                                     height:
                                                                         315.v,
@@ -645,8 +659,12 @@ class StartPageUIState extends State<StartPageUI> {
       onTap: () {
         showDialog(
           context: context,
+
           builder: (_) {
             return AlertDialog(
+              backgroundColor: Colors.white,
+              surfaceTintColor: Colors.white,
+
               title: Text(
                 "Table menu",
                 style: TextStyle(fontSize: 20.fSize),

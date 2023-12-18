@@ -57,8 +57,16 @@ class _ButtomComponentState extends State<ButtomComponent> {
       width: 383.h,
       height: 310.v,
       decoration: BoxDecoration(
-        color: AppColors.itemsColor,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(10),
+         boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 1,
+            blurRadius: 1,
+            offset: const Offset(0, 1), // changes position of shadow
+          ),
+        ],
       ),
       child: Column(
         children: [
@@ -70,7 +78,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                   "Subtotal",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: AppColors.textItems,
+                      color:  Colors.black,
                       fontSize: 15.fSize),
                 ),
                 const Spacer(),
@@ -78,7 +86,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                   "${widget.appState.subtotal.toStringAsFixed(3)} TND",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: AppColors.textItems,
+                      color:  Colors.black,
                       fontSize: 15.fSize),
                 ),
               ],
@@ -92,7 +100,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                   "TVA 7%",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: AppColors.textItems,
+                      color:  Colors.black,
                       fontSize: 15.fSize),
                 ),
                 const Spacer(),
@@ -100,7 +108,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                   "${widget.appState.tva.toStringAsFixed(3)} TND",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: AppColors.textItems,
+                      color:  Colors.black,
                       fontSize: 15.fSize),
                 ),
               ],
@@ -114,7 +122,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                   "Total",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color:  Colors.black,
                       fontSize: 15.fSize),
                 ),
                 const Spacer(),
@@ -122,7 +130,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                   "${widget.appState.total.toStringAsFixed(3)} TND",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: AppColors.textItems,
+                      color:  Colors.black,
                       fontSize: 15.fSize),
                 ),
               ],
@@ -135,12 +143,12 @@ class _ButtomComponentState extends State<ButtomComponent> {
                 InkWell(
                   onTap: widget.onTap,
                   child: Container(
-                    width: 191.5.h,
+                    width: 180.h,
                     height: 100.v,
                     decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
-                        color: AppColors.lightColor,
+                        color: Colors.red ,
                         border: Border.all(
                           color: AppColors.primaryColor,
                           width: 2.h,
@@ -150,7 +158,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                       children: [
                         Icon(
                           Icons.arrow_back,
-                          color: AppColors.greenColor.withOpacity(0.8),
+                          color: Colors.white,
                           size: 30.fSize,
                         ),
                         SizedBox(
@@ -159,7 +167,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                         Text(
                           "Send to Kitchen",
                           style: TextStyle(
-                              color: AppColors.greenColor.withOpacity(0.8),
+                              color: Colors.white ,
                               fontSize: 20.fSize),
                         )
                       ],
@@ -180,9 +188,9 @@ class _ButtomComponentState extends State<ButtomComponent> {
                     decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
-                        color: AppColors.lightColor,
+                        color:  Colors.red,
                         border: Border.all(
-                          color: AppColors.primaryColor,
+                          color:  Colors.red,
                           width: 2.h,
                         )),
                     child: Row(
@@ -190,7 +198,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                       children: [
                         Icon(
                           Icons.add_card_outlined,
-                          color: AppColors.turquoise,
+                          color: Colors.white,
                           size: 30.fSize,
                         ),
                         SizedBox(
@@ -199,7 +207,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                         Text(
                           "Payment",
                           style: TextStyle(
-                              color: AppColors.turquoise, fontSize: 20.fSize),
+                              color: Colors.white, fontSize: 20.fSize),
                         )
                       ],
                     ),
@@ -217,12 +225,12 @@ class _ButtomComponentState extends State<ButtomComponent> {
                     printTicket2();
                   },
                   child: Container(
-                    width: 381.h,
+                    width: 351.h,
                     height: 50.v,
                     decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
-                        color: AppColors.lightColor,
+                        color: Colors.red ,
                         border: Border.all(
                           color: AppColors.primaryColor,
                           width: 2.h,
@@ -232,16 +240,16 @@ class _ButtomComponentState extends State<ButtomComponent> {
                       children: [
                         Icon(
                           Icons.print,
-                          color: AppColors.greenColor.withOpacity(0.8),
+                          color: Colors.white,
                           size: 30.fSize,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Text(
                           "Print Ticket",
                           style: TextStyle(
-                              color: AppColors.greenColor.withOpacity(0.8),
+                              color: Colors.white,
                               fontSize: 20.fSize),
                       )
                       ],

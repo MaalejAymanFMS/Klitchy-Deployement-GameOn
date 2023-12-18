@@ -109,6 +109,7 @@ class _RightDrawerState extends State<RightDrawer> {
       widget.appState.updateEntryItemStatus(item.item_code!, "Sent");
     }
   }
+
   Future<void> addOrderss() async {
     for (var item in widget.appState.entryItems) {
       widget.appState.updateEntryItemStatus(item.item_code!, "Sent");
@@ -153,65 +154,64 @@ class _RightDrawerState extends State<RightDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 500.h,
+    return Container(
+      width: 383.h,
       height: 900.v,
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.v),
-        child: Column(
-          children: [
-            TableTag(widget.appState, widget.tableName, addOrders),
-            Expanded(
-              child: widget.appState.orders.isNotEmpty
-                  ? SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Text(
-                            "Items",
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 15.fSize),
-                          ),
-                          Column(
-                            children: widget.appState.orders.map((order) {
-                              return InkWell(
-                                onTap: () {
-                                  if (widget.appState.enabledNotes) {
-                                    showOrderDetails(order, widget.appState);
-                                  }
-                                  if (widget.appState.enabledDelete) {
-                                    widget.appState
-                                        .deleteOrder(order.number, order);
-                                  }
-                                },
-                                child: order,
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      ),
-                    )
-                  : const SizedBox(),
-            ),
-            ButtomComponent(
 
-              onTap: () async {
-
-                if (orderId.isEmpty) {
-                  await addOrderss();
-                  await fetchOrders();
-                } else {
-                  await updateOrderr();
-                  await fetchOrders();
-                }
-
-
+      child: Column(
+        children: [
+          TableTag(widget.appState, widget.tableName, addOrders),
+          Expanded(
+            child: widget.appState.orders.isNotEmpty
+                ? SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 20.v,
+                        ),
+                        Text(
+                          "Items",
+                          style: TextStyle(
+                              color: Colors.black, fontSize: 15.fSize),
+                        ),
+                        Column(
+                          children: widget.appState.orders.map((order) {
+                            return InkWell(
+                              onTap: () {
+                                if (widget.appState.enabledNotes) {
+                                  showOrderDetails(order, widget.appState);
+                                }
+                                if (widget.appState.enabledDelete) {
+                                  widget.appState
+                                      .deleteOrder(order.number, order);
+                                }
+                              },
+                              child: order,
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  )
+                : const SizedBox(),
+          ),
+          ButtomComponent(
+            onTap: () async {
+              if (orderId.isEmpty) {
+                await addOrderss();
+                await fetchOrders();
+              } else {
+                await updateOrderr();
+                await fetchOrders();
               }
-              //orderId.isEmpty ? addOrders : updateOrder
-              ,
-              appState: widget.appState,
-            ),
-          ],
-        ),
+            }
+            //orderId.isEmpty ? addOrders : updateOrder
+            ,
+            appState: widget.appState,
+          ),
+        ],
       ),
     );
   }
@@ -248,7 +248,7 @@ class _RightDrawerState extends State<RightDrawer> {
                 ),
                 const Spacer(),
                 Container(
-                  color: AppColors.itemsColor,
+                  color: Colors.red,
                   child: VirtualKeyboard(
                       height: 310.v,
                       textColor: Colors.white,

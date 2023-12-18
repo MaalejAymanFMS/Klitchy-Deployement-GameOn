@@ -79,7 +79,7 @@ class TableOrderState extends State<TableOrder> {
           width: 1117.h,
           height: 262.v,
           decoration: const BoxDecoration(
-            color: Color(0xFF0E1227),
+            color: Colors .white,
             borderRadius: BorderRadius.all(
               Radius.circular(18),
             ),
@@ -96,8 +96,8 @@ class TableOrderState extends State<TableOrder> {
                 return ItemCategorie(
                   name: listCategories[index].name!,
                   color: selectedCategoryIndex == index
-                      ? Colors.red
-                      : Colors.lightBlueAccent,
+                      ? Colors.red.withOpacity(0.2)
+                      :  Colors.red,
                   numberOfItems: 14,
                   onTap: (params) {
                     fetchItems(params);
@@ -116,15 +116,19 @@ class TableOrderState extends State<TableOrder> {
             },
           ),
         ),
+        const Divider(
+          color: Colors.red,
+          thickness: 2,
+        ),
         const Spacer(),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.h),
+          padding: const EdgeInsets.only( left: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Find items in $categorieName",
-                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 20.fSize),
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20.fSize),
               ),
               SizedBox(
                 height: 10.v,

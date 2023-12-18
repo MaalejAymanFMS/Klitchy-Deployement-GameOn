@@ -20,11 +20,11 @@ class TableTimer extends StatelessWidget {
             Container(
               width: 58.h,
               height: 58.v,
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
                     Radius.circular(7),
                   ),
-                  color: AppColors.turquoise.withOpacity(0.4)
+                  color: Colors.red,
               ),
               child: const Icon(Icons.table_bar_outlined, color: Colors.white,),
             ),
@@ -37,7 +37,7 @@ class TableTimer extends StatelessWidget {
                   child: Text(
                     tableName!,
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white, fontSize: 12.fSize),
+                        fontWeight: FontWeight.bold, color: Colors.black, fontSize: 12.fSize),
                     maxLines: 2,
                   ),
                 ),
