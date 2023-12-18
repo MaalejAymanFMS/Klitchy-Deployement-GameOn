@@ -90,6 +90,7 @@ class AppState extends ChangeNotifier {
         _initialTotal -=
             _orders.elementAt(existingWidgetIndex).number * orderWidget.price;
         _orders.elementAt(existingWidgetIndex).number = number;
+        _tva -= orderWidget.price * 0.07 * (orderWidget.number - 1);
       } else {
         _orders.add(orderWidget);
       }
@@ -138,15 +139,30 @@ class AppState extends ChangeNotifier {
       if (_orders.elementAt(existingWidgetIndex).number == 0) {
         _orders.removeAt(existingWidgetIndex);
       }
+      final entryItemIndex = _entryItems.indexWhere(
+            (entryItem) => entryItem.item_name == orderWidget.name,
+      );
+      if (entryItemIndex != -1) {
+        _entryItems.removeAt(entryItemIndex);
+      }
     }
-    _subtotal -= orderWidget.price - (orderWidget.price * 0.07);
-    _tva -= orderWidget.price * 0.07;
-    _total -= orderWidget.price;
+    if(_discount == 0) {
+      _subtotal -= orderWidget.price - (orderWidget.price * 0.07);
+      _tva -= orderWidget.price * 0.07;
+      _total -= orderWidget.price;
+    } else {
+      _subtotal -= orderWidget.price * (1-_discount) - (orderWidget.price * (1-_discount) * 0.07);
+      _tva -= orderWidget.price * (1-_discount) * 0.07;
+      _total -= orderWidget.price * (1-_discount);
+    }
     if (_subtotal < 0) {
       _subtotal = 0.0;
     }
     if (_tva < 0) {
       _tva = 0.0;
+    }
+    if (_total < 0) {
+      _total = 0.0;
     }
     notifyListeners();
   }
@@ -167,40 +183,38 @@ class AppState extends ChangeNotifier {
 
   ///discount
   double _discount = 0.0;
-
   double get discount => _discount;
 
   void addDiscount(String discountNumber) {
+    double newDiscount = double.parse(discountNumber) / 100;
 
-    _discount = double.parse(discountNumber) / 100;
-    if (discount >= 0.0) {
-      _discountTotal = discount;
-      double discountAmount = _initialTotal * discount;
-      _subtotal = _subtotalInitial *(1-discount);
-      _tva=_tvaInitial*(1-discount);
-      _total = _subtotal + _tva;
+    if (newDiscount > 0.0) {
+      _discount = newDiscount;
+      _total = 0;
+      _tva = 0;
+      _subtotal = 0;
+      for (var order in _orders) {
+        _total += order.price * order.number * (1 - discount);
+        _subtotal += ((order.price - order.price * 0.07) * order.number) * (1 - discount);
+        _tva += (order.price * 0.07 * order.number)* (1 - discount);
+      }
+
+    } else {
+      _discount = newDiscount;
+      _total = 0;
+      _tva = 0;
+      _subtotal = 0;
+      for (var order in _orders) {
+        _total += order.price * order.number;
+        _subtotal += (order.price - order.price * 0.07) * order.number;
+        _tva += order.price * 0.07 * order.number;
+      }
     }
-    if(discountNumber == "-1"){
-      _discountTotal = 0.0;
-      _discount = 0.0;
-      _discountTotal = discount;
 
-       for(var item in entryItems){
-
-         _initialTotal += item.amount! - item.amount!;
-         _subtotalInitial =_initialTotal -tva;
-
-         double discountAmount = _initialTotal * discount;
-        _subtotal = _subtotalInitial *(1-discount);
-        _tva=_tvaInitial*(1-discount);
-        _total = _subtotal + _tva;
-         _total = double.parse(_total.toStringAsFixed(2));
-       }
-    }
     _total = double.parse(_total.toStringAsFixed(2));
     notifyListeners();
-
   }
+
 
   ///notes
   void updateOrderNote(String orderName, String newNote) {
@@ -425,9 +439,7 @@ class AppState extends ChangeNotifier {
   void deleteTableTimer(String id) {
     final existingWidgetIndex =
         _tableTimer.indexWhere((widget) => widget.tableId == id);
-    print(_tableTimer);
     _tableTimer.removeAt(existingWidgetIndex);
-    print(_tableTimer);
     notifyListeners();
   }
 
@@ -439,30 +451,20 @@ class AppState extends ChangeNotifier {
   void addEntryItem(double number, EntryItem entryItem) {
     if (number > 0) {
       final existingWidgetIndex = _entryItems.indexWhere(
-        (widget) =>
-            widget.name == entryItem.name ||
+            (widget) =>
+        widget.name == entryItem.name &&
             widget.item_code == entryItem.item_code,
       );
-      print("item_code: ${entryItem.item_code}");
+
       if (existingWidgetIndex != -1) {
-        _entryItems.elementAt(existingWidgetIndex).qty = number;
+        _entryItems[existingWidgetIndex].qty = number;
       } else {
         _entryItems.add(entryItem);
       }
-      print("_entryItems: $_entryItems");
     }
-    // else {
-    //   final existingWidgetIndex = _entryItems.indexWhere(
-    //         (widget) =>
-    //     widget.name == entryItem.name &&
-    //         widget.item_code == entryItem.item_code,
-    //   );
-    //   print(entryItems);
-    //   _entryItems.removeAt(existingWidgetIndex);
-    //   print(entryItems);
-    // }
     notifyListeners();
   }
+
 
 
 
@@ -479,7 +481,8 @@ class AppState extends ChangeNotifier {
     if((entryItemToUpdate.status=="Attending" || entryItemToUpdate.status=="") && status=="Sent"){
       entryItemToUpdate.status = status;
     }
-    
+    print("entryItemToUpdate.status : ${entryItemToUpdate.status} ${entryItemToUpdate.item_name}");
+
     notifyListeners();
   }
 

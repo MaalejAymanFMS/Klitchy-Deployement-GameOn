@@ -119,7 +119,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                 ),
                 const Spacer(),
                 Text(
-                  "${widget.appState.total} TND",
+                  "${widget.appState.total.toStringAsFixed(3)} TND",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: AppColors.textItems,
