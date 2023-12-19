@@ -43,17 +43,24 @@ class ItemCategorie extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.redAccent.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: const Offset(0, 1), // changes position of shadow
+            ),
+          ],
+          backgroundBlendMode: BlendMode.darken,
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                name,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, color: Colors.white, fontSize: 22.fSize),
-              ),
+            Text(
+              name,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.black, fontSize: 22.fSize),
             ),
 
           ],

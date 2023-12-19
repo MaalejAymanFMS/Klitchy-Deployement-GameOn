@@ -41,6 +41,7 @@ class CustomButton extends StatelessWidget {
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
+
         ),
         padding: MaterialStateProperty.all(
           const EdgeInsets.all(16),
@@ -48,9 +49,9 @@ class CustomButton extends StatelessWidget {
         backgroundColor: MaterialStateProperty.all(
             backgroundColor != null ?
             disabledButton == false ?
-            Colors.grey.withOpacity(0.2) : backgroundColor!.withOpacity(0.5)
+            Colors.black : backgroundColor!.withOpacity(0.5)
                 :
-            AppColors.primaryColor),
+            Colors.black),
       ),
       child: Row(
         children: [

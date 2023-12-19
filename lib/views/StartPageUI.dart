@@ -413,14 +413,16 @@ class StartPageUIState extends State<StartPageUI> {
                                                                 label:
                                                                     "Table Name",
                                                                 hintText:
-                                                                    "name",
+                                                                    "Enter your table name",
                                                                 controller:
                                                                     tableNameController,
+
                                                               ),
                                                               SizedBox(
                                                                 height: 50.v,
                                                               ),
                                                               CustomButton(
+                                                                 backgroundColor: Colors.redAccent,
                                                                 text:
                                                                     "Place table",
                                                                 onTap: () {
@@ -686,6 +688,7 @@ class StartPageUIState extends State<StartPageUI> {
                         widget.appState.switchOrder();
                         Navigator.pop(context);
                       },
+                      backgroundColor: Colors.redAccent,
                     ),
                   ],
                 ),

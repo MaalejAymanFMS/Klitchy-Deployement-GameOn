@@ -123,8 +123,22 @@ class ItemState extends State<Item> {
         width: 274.h,
         height: 134.v,
         decoration: BoxDecoration(
-          color: Colors.redAccent,
+          color: Colors.red,
           borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: const Offset(0, 1), // changes position of shadow
+            ),
+            BoxShadow(
+              color: Colors.redAccent.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: const Offset(0, 1), // changes position of shadow
+            ),
+          ],
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

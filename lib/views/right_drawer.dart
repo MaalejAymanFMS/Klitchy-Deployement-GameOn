@@ -241,7 +241,7 @@ class _RightDrawerState extends State<RightDrawer> {
                     orderNote.clear();
                     Navigator.pop(context);
                   },
-                  backgroundColor: Colors.blueGrey,
+                  backgroundColor: Colors.redAccent,
                 ),
                 SizedBox(
                   height: 20.v,

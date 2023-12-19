@@ -89,15 +89,15 @@ class TableOrderState extends State<TableOrder> {
                 crossAxisCount: 4,
                 mainAxisSpacing: 10,
                 crossAxisSpacing: 10,
-                childAspectRatio: 267.h / 123.v),
+                childAspectRatio: 267.h / 123.v),padding: const EdgeInsets.all(10),
             itemCount: listCategories.length,
             itemBuilder: (BuildContext context, int index) {
               if (index < listCategories.length) {
                 return ItemCategorie(
                   name: listCategories[index].name!,
                   color: selectedCategoryIndex == index
-                      ? Colors.red.withOpacity(0.2)
-                      :  Colors.red,
+                      ? Colors.red
+                      :  Colors.white,
                   numberOfItems: 14,
                   onTap: (params) {
                     fetchItems(params);
@@ -151,6 +151,7 @@ class TableOrderState extends State<TableOrder> {
               crossAxisSpacing: 10,
               childAspectRatio: 274.h / 134.v,
             ),
+            padding: const EdgeInsets.all(10) ,
             itemCount: listItems.length,
             itemBuilder: (BuildContext context, int index) {
               if (index < listItems.length) {

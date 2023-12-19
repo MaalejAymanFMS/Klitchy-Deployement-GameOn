@@ -24,6 +24,7 @@ class OrderComponent extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Container(
             width: 379.h,
+            height: 78.v,
              decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
                 Radius.circular(7),
