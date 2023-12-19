@@ -194,15 +194,19 @@ class _RightDrawerState extends State<RightDrawer> {
             ),
             ButtomComponent(
 
-              onTap: () async {
-
+              onTap: (
+                  ) async {
                 if (orderId.isEmpty) {
                   await addOrderss();
                   await fetchOrders();
+
                 } else {
                   await updateOrderr();
                   await fetchOrders();
+
                 }
+               //TODO  confirmOrder(context,"Order added successfully","Success");
+
 
 
               }
@@ -215,6 +219,10 @@ class _RightDrawerState extends State<RightDrawer> {
       ),
     );
   }
+// pop up dialog to confirm the order
+
+
+
 
   void showOrderDetails(OrderComponent order, AppState appState) {
     showDialog(

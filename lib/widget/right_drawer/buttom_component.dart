@@ -51,6 +51,80 @@ class _ButtomComponentState extends State<ButtomComponent> {
       print('Error: $e');
     }
   }
+
+
+  //  show a popup to confirm the order
+  void showConfirmOrderAlert(BuildContext context, String msg, String title) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor:  Colors.white ,
+          title: Text(title),
+          content: SizedBox(
+            height: 100.v,
+            child: Column(
+              children: [
+                Text(msg),
+                SizedBox(
+                  height: 10.v,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomButton(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      text: "Cancel",
+                    ),
+                    SizedBox(
+                      width: 10.h,
+                    ),
+                    CustomButton(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      text: "Confirm",
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+  Future<void> confirmOrder(BuildContext context,String message,String title) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true, //
+      // user must tap button!
+      builder: (BuildContext context) {
+
+        return AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(message),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+
+            TextButton(
+              child: const Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -133,7 +207,10 @@ class _ButtomComponentState extends State<ButtomComponent> {
             child: Row(
               children: [
                 InkWell(
-                  onTap: widget.onTap,
+                  onTap: () {
+                    widget.onTap();
+                    confirmOrder(context, "Order added successfully", "Success");
+                  },
                   child: Container(
                     width: 191.5.h,
                     height: 100.v,
