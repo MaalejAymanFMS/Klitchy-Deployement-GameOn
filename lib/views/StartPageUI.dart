@@ -18,10 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:virtual_keyboard_2/virtual_keyboard_2.dart';
 
 import '../config/app_colors.dart';
-import '../models/tables.dart';
-import '../utils/constants.dart';
 import '../utils/locator.dart';
-import '../viewmodels/start_page_vm.dart';
 import '../widget/custom_button.dart';
 import '../widget/entry_field.dart';
 import '../widget/tables/table_2.dart';

@@ -1,15 +1,29 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:klitchyapp/utils/AppState.dart';
 import 'package:klitchyapp/utils/size_utils.dart';
 
 import '../config/app_colors.dart';
-class TableTimer extends StatelessWidget {
+class TableTimer extends StatefulWidget {
   final String? tableId;
   final String? tableName;
   final String? timer;
   const TableTimer({super.key, this.tableId, this.tableName, this.timer});
 
   @override
+  State<TableTimer> createState() => _TableTimerState();
+}
+
+class _TableTimerState extends State<TableTimer> {
+  DateTime now = DateTime.now();
+
+
+
+  @override
   Widget build(BuildContext context) {
+
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: SizedBox(
@@ -35,7 +49,7 @@ class TableTimer extends StatelessWidget {
                 SizedBox(
                   width: 200.h,
                   child: Text(
-                    tableName!,
+                    widget.tableName!,
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black, fontSize: 12.fSize),
                     maxLines: 2,
@@ -44,16 +58,10 @@ class TableTimer extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      timer ?? '',
+                     "${now.hour}:${now.minute}",
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.secondaryTextColor),
-                    ),
-                    Text(
-                      'Timer: 17:22',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.secondaryTextColor, fontSize: 15.fSize),
                     ),
                   ],
                 ),

@@ -51,6 +51,10 @@ class _ButtomComponentState extends State<ButtomComponent> {
       print('Error: $e');
     }
   }
+  // get the current   time  when clicked
+// and send it to the backend
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -141,7 +145,12 @@ class _ButtomComponentState extends State<ButtomComponent> {
             child: Row(
               children: [
                 InkWell(
-                  onTap: widget.onTap,
+                  onTap: () {
+
+
+
+                    widget.onTap();
+                  },
                   child: Container(
                     width: 180.h,
                     height: 100.v,

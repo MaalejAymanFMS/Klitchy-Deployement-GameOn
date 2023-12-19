@@ -47,6 +47,15 @@ class AppState extends ChangeNotifier {
       notifyListeners();
     }
   }
+// function to get the current timer
+   String  time = "";
+  DateTime now = DateTime.now();
+  // get function to get the current time
+  String currentTime() {
+    return  time ="${now.hour}:${now.minute}";
+  }
+
+
 
   ///orders
   List<OrderComponent> _orders = [];
@@ -430,6 +439,7 @@ class AppState extends ChangeNotifier {
           widget.tableId == tableTimerWidget.tableId &&
           widget.tableName == tableTimerWidget.tableName,
     );
+
     if (existingWidgetIndex == -1) {
       _tableTimer.add(tableTimerWidget);
     }
