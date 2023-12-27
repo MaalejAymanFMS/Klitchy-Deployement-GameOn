@@ -452,7 +452,6 @@ class AppState extends ChangeNotifier {
     if (number > 0) {
       final existingWidgetIndex = _entryItems.indexWhere(
             (widget) =>
-        widget.name == entryItem.name ||
             widget.item_code == entryItem.item_code,
       );
 
