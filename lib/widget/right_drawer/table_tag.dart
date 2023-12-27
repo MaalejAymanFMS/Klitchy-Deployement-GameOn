@@ -163,7 +163,7 @@ class _TableTagState extends State<TableTag> {
                 } else {
                   deleteColor = Colors.transparent;
 
-                  widget.appState.deleteEntryItems();
+                  //widget.appState.deleteEntryItems();
                   // for (var order in widget.appState.orders) {
                   //   widget.appState.addEntryItem(
                   //       order.number.toDouble(),
