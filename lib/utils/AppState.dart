@@ -221,6 +221,10 @@ class AppState extends ChangeNotifier {
     final orderToUpdate = _orders.firstWhere(
       (order) => order.name == orderName,
     );
+    final entryItemToUpdate = entryItems.firstWhere(
+      (order) => order.item_name == orderName,
+    );
+    entryItemToUpdate.notes=newNote;
     orderToUpdate.note = newNote;
     notifyListeners();
   }
