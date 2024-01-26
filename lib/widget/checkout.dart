@@ -11,8 +11,6 @@ import 'package:printing/printing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-//TODOO add payement methos
-
 class CheckoutScreen extends StatefulWidget {
   final AppState appState;
 

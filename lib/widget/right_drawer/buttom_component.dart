@@ -52,14 +52,14 @@ class _ButtomComponentState extends State<ButtomComponent> {
     }
   }
 
-
   //  show a popup to confirm the order
-  void showConfirmOrderAlert(BuildContext context, String msg, String title) async {
+  void showConfirmOrderAlert(
+      BuildContext context, String msg, String title) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor:  Colors.white ,
+          backgroundColor: Colors.white,
           title: Text(title),
           content: SizedBox(
             height: 100.v,
@@ -96,13 +96,14 @@ class _ButtomComponentState extends State<ButtomComponent> {
       },
     );
   }
-  Future<void> confirmOrder(BuildContext context,String message,String title) async {
+
+  Future<void> confirmOrder(
+      BuildContext context, String message, String title) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true, //
       // user must tap button!
       builder: (BuildContext context) {
-
         return AlertDialog(
           title: Text(title),
           content: SingleChildScrollView(
@@ -113,7 +114,6 @@ class _ButtomComponentState extends State<ButtomComponent> {
             ),
           ),
           actions: <Widget>[
-
             TextButton(
               child: const Text('Close'),
               onPressed: () {
@@ -125,6 +125,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -209,7 +210,8 @@ class _ButtomComponentState extends State<ButtomComponent> {
                 InkWell(
                   onTap: () {
                     widget.onTap();
-                    confirmOrder(context, "Order added successfully", "Success");
+                    confirmOrder(
+                        context, "Order added successfully", "Success");
                   },
                   child: Container(
                     width: 191.5.h,
@@ -245,10 +247,17 @@ class _ButtomComponentState extends State<ButtomComponent> {
                 ),
                 InkWell(
                   onTap: () {
-                    if (widget.appState.checkout) {
-                      widget.appState.switchCheckoutOrder();
+                    if (widget.appState.entryItems.isNotEmpty) {
+                      if (widget.appState.checkout) {
+                        widget.appState.switchCheckoutOrder();
+                      } else {
+                        widget.appState.switchCheckout();
+                      }
                     } else {
-                      widget.appState.switchCheckout();
+                      confirmOrder(
+                          context,
+                          "Please enter items before perceding to payment",
+                          "No items entered");
                     }
                   },
                   child: Container(
@@ -290,7 +299,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
             child: Row(
               children: [
                 InkWell(
-                  onTap:() {
+                  onTap: () {
                     printTicket2();
                   },
                   child: Container(
@@ -320,7 +329,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                           style: TextStyle(
                               color: AppColors.greenColor.withOpacity(0.8),
                               fontSize: 20.fSize),
-                      )
+                        )
                       ],
                     ),
                   ),
