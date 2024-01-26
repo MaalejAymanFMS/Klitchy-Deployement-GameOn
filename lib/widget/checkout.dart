@@ -24,10 +24,41 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   double totalAmount = 0.0;
-  double amountGiven = 0.0;
-  String amountGivenString = "";
   double change = 0.0;
   bool isTapCommar = false;
+
+  String totalAmountGivenString = "";
+  double totalAmountGiven = 0.0;
+
+  //previous amounts
+  String previousAmountCashString = "";
+  double previousAmountCash = 0.0;
+  String previousAmountChequeString = "";
+  double previousAmountCheque = 0.0;
+  String previousAmountWireTransferString = "";
+  double previousAmountWireTransfer = 0.0;
+  //
+
+  String amountGivenString = "";
+  double amountGiven = 0.0;
+
+  String amountGivenCashString = "";
+  double amountGivenCash = 0.0;
+  double totalAmountGivenCash = 0.0;
+
+  String amountGivenChequeString = "";
+  double amountGivenCheque = 0.0;
+  double totalAmountGivenCheque = 0.0;
+
+  String amountGivenWireTransferString = "";
+  double amountGivenWireTransfer = 0.0;
+  double totalAmountGivenWireTransfer = 0.0;
+
+  bool payWithCash = true;
+  bool payWithCheque = false;
+  bool payWithWireTransfer = false;
+
+  bool changePreviousAmount = false;
 
   Future<int> payment() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -77,65 +108,75 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               item.item_code!, "POS Invoice Item", "Stores - GP");
         }
       }
+
       Map<String, dynamic> body = {
         "docstatus": 1,
-        "modified_by": prefs.getString("email"), //tetbaddel bel waiter
+        "title": "default ",
         "naming_series": "ACC-PSINV-.YYYY.-",
         "customer": "default",
-        "customer_name": "default",
+        "customer_name": "default ",
         "pos_profile": "caissier",
         "is_pos": 1,
-        "is_return": 0,
-        "update_billed_amount_in_sales_order": 0,
         "company": "The Game Production",
-        "posting_date": DateTime.now().year.toString()+"-"+DateTime.now().month.toString()+"-"+DateTime.now().day.toString(),
-        "posting_time": DateTime.now().hour.toString()+":"+DateTime.now().minute.toString(),
-        "set_posting_time": 0,
-        "due_date": DateTime.now().year.toString()+"-"+DateTime.now().month.toString()+"-"+DateTime.now().day.toString(),
-        "territory": "Rest Of The World",
-        "shipping_address_name": "",
         "currency": "TND",
-        "conversion_rate": 1.0,
         "selling_price_list": "Standard Selling",
         "price_list_currency": "TND",
-        "plc_conversion_rate": 1.0,
-        "ignore_pricing_rule": 0,
         "set_warehouse": "Stores - GP",
         "update_stock": 1,
+        "total_qty": 2.0,
         "total": widget.appState.total,
         "net_total": widget.appState.subtotal,
         "apply_discount_on": "Grand Total",
         "additional_discount_percentage": widget.appState.discount,
+        "discount_amount": 0.0,
         "grand_total": widget.appState.total,
-        "paid_amount": amountGiven,
-        "change_amount": change,
+        "paid_amount": 30.0,
+        "change_amount": 5.0,
         "account_for_change_amount": "Cash - GP",
         "write_off_account": "Sales - GP",
         "write_off_cost_center": "Main - GP",
-        "language": "fr",
         "customer_group": "Individual",
-        "status": "Paid",
+        "is_discounted": 0,
+        "status": "Consolidated",
         "debit_to": "Debtors - GP",
         "party_account_currency": "TND",
-        "is_opening": "No",
-        "c_form_applicable": "No",
         "doctype": "POS Invoice",
         "items": widget.appState.entryItems
             .map((entryMap) => entryMap.toJson())
             .toList(),
         "payments": [
+          //this is the payment using the cash method
           {
-            "owner": prefs.getString("email"),
-            "modified_by": prefs.getString("email"),
-            "parentfield": "payments",
-            "parenttype": "POS Invoice",
-            "idx": 1,
-            "docstatus": 1,
-            "default": 0,
-            "mode_of_payment": "Cash",
-            "amount": widget.appState.total, //tetbaddel
+            "parentfield": "payments", //static
+            "parenttype": "POS Invoice", //static
+            "docstatus": 1, //static
+            "default": 1, //static
+            "mode_of_payment": "Cash", //your payment method
+            "amount": amountGivenCash, //the amount paid using the method
             "account": "Cash - GP",
             "type": "Cash",
+            "doctype": "Sales Invoice Payment" //static
+          },
+          //this is the payment using the check methode
+          {
+            "parentfield": "payments",
+            "parenttype": "POS Invoice",
+            "docstatus": 1,
+            "mode_of_payment": "Cheque",
+            "amount": amountGivenCheque,
+            "account": "BIAT - GP",
+            "type": "Cash",
+            "doctype": "Sales Invoice Payment"
+          },
+          {
+            //this is the payment with credit card method
+            "parentfield": "payments",
+            "parenttype": "POS Invoice",
+            "docstatus": 1,
+            "mode_of_payment": "Wire Transfer",
+            "amount": amountGivenWireTransfer,
+            "account": "BIAT - GP",
+            "type": "Bank",
             "doctype": "Sales Invoice Payment"
           }
         ]
@@ -202,19 +243,64 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       if (number == ".") {
         isTapCommar = true;
       }
-      amountGivenString += number;
-      amountGiven = double.parse(amountGivenString);
+      if (payWithCash) {
+        amountGivenCashString += number;
+        amountGivenCash = double.parse(amountGivenCashString);
+        amountGiven = amountGivenCash;
+        amountGivenString = amountGiven.toString();
+        previousAmountCash = amountGiven;
+        previousAmountCashString = amountGivenString;
+        changePreviousAmount = true;
+      } else if (payWithCheque) {
+        amountGivenChequeString += number;
+        amountGivenCheque = double.parse(amountGivenChequeString);
+        amountGiven = amountGivenCheque;
+        amountGivenString = amountGiven.toString();
+        previousAmountCheque = amountGiven;
+        previousAmountChequeString = amountGivenString;
+        changePreviousAmount = true;
+      } else if (payWithWireTransfer) {
+        amountGivenWireTransferString += number;
+        amountGivenWireTransfer = double.parse(amountGivenWireTransferString);
+        amountGiven = amountGivenWireTransfer;
+        amountGivenString = amountGiven.toString();
+        previousAmountWireTransfer = amountGiven;
+        previousAmountWireTransferString = amountGivenString;
+        changePreviousAmount = true;
+      }
+      totalAmountGiven =
+          amountGivenCash + amountGivenCheque + amountGivenWireTransfer;
+      totalAmountGivenString = totalAmountGiven.toString();
     });
     print(amountGivenString);
+    print(amountGivenCashString);
+    print(amountGivenChequeString);
+    print(amountGivenWireTransferString);
   }
 
   void clearAmountGiven() {
     setState(() {
       isTapCommar = false;
       amountGiven = 0.0;
+      amountGivenCash = 0.0;
+      amountGivenCheque = 0.0;
+      amountGivenWireTransfer = 0.0;
       amountGivenString = "";
+      amountGivenCashString = "";
+      amountGivenChequeString = "";
+      amountGivenWireTransferString = "";
+      totalAmountGiven = 0.0;
+      totalAmountGivenString = "";
+
+      previousAmountCash = 0.0;
+      previousAmountCheque = 0.0;
+      previousAmountWireTransfer = 0.0;
+      previousAmountCashString = "";
+      previousAmountChequeString = "";
+      previousAmountWireTransferString = "";
     });
   }
+
   bool isVisible = true;
   @override
   void initState() {
@@ -236,6 +322,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           Visibility(
             visible: isVisible,
             child: Container(
+              //color: Colors.yellow,
               padding: const EdgeInsets.all(16.0),
               child: Center(
                 child: Column(
@@ -246,41 +333,271 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       child: Container(
                         padding: EdgeInsets.all(10),
                         color: Color.fromARGB(255, 22, 26, 52),
-                        child: Column(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              width: 460.h,
-                              height: 86.v,
-                              color: Color.fromARGB(255, 134, 137, 154),
-                              child: Center(
-                                child: Text(
-                                  'Total Amount: ${totalAmount.toStringAsFixed(3)} TND',
-                                  style: TextStyle(
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFFf1eaff), // Font color
+                            Column(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () => {
+                                    setState(() {
+                                      if (!payWithCash) {
+                                        if (changePreviousAmount) {
+                                          amountGivenCheque =
+                                              previousAmountCash;
+                                          amountGivenChequeString =
+                                              previousAmountCashString;
+                                          changePreviousAmount = false;
+                                        }
+                                        // previousAmountGiven = amountGivenCash;
+                                        // previousAmountGivenString =
+                                        //     amountGivenCashString;
+                                        amountGiven = 0;
+                                        amountGivenString = "";
+                                        amountGivenCash = 0;
+                                        amountGivenCashString = "";
+                                        totalAmountGiven = amountGivenCheque +
+                                            amountGivenWireTransfer;
+
+                                        //totalAmountGivenString = totalAmountGiven.toString();
+                                      }
+                                      payWithCash = true;
+                                      payWithCheque = false;
+                                      payWithWireTransfer = false;
+                                    }),
+                                    print(
+                                        "payed with cash: $amountGivenCashString"),
+                                    print("total amount given cash: " +
+                                        totalAmountGivenCash.toString()),
+                                    print(
+                                        "payed with cheque: $amountGivenChequeString"),
+                                    print("total amount given cheque: " +
+                                        totalAmountGivenCheque.toString()),
+                                    print(
+                                        "payed with wire transfer: $amountGivenWireTransferString"),
+                                    print("total amount given wire transfer: " +
+                                        totalAmountGivenWireTransfer
+                                            .toString()),
+                                  },
+                                  child: Text(
+                                    'Cash',
+                                    style: TextStyle(
+                                        color: AppColors.dark01Color,
+                                        fontSize: 25),
                                   ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: deviceSize.height * 0.01,
-                            ),
-                            Container(
-                              width: deviceSize.width * 0.24,
-                              height: deviceSize.height * 0.08,
-                              color: Color.fromARGB(255, 134, 137, 154),
-                              child: Center(
-                                child: Text(
-                                  'Amount Given: ${amountGiven.toStringAsFixed(3)} TND',
-                                  style: TextStyle(
-                                    fontSize: 24.0,
-                                    color: Color(0xFFf1eaff), // Font color
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Color.fromARGB(255, 134, 137, 154),
+                                    minimumSize: Size(112.h, 77.v),
+                                    padding: EdgeInsets.all(16.0),
+                                    shape: RoundedRectangleBorder(),
                                   ),
-                                  textAlign: TextAlign.center,
                                 ),
-                              ),
+                                ElevatedButton(
+                                  onPressed: () => {
+                                    setState(() {
+                                      if (!payWithCheque) {
+                                        if (changePreviousAmount) {
+                                          amountGivenCheque =
+                                              previousAmountCheque;
+                                          amountGivenChequeString =
+                                              previousAmountChequeString;
+                                          changePreviousAmount = false;
+                                        }
+                                        // previousAmountGiven = amountGivenCheque;
+                                        // previousAmountGivenString =
+                                        //     amountGivenChequeString;
+
+                                        amountGiven = 0;
+                                        amountGivenString = "";
+                                        amountGivenCheque = 0;
+                                        amountGivenChequeString = "";
+                                        totalAmountGiven = amountGivenCash +
+                                            amountGivenWireTransfer;
+                                        //totalAmountGivenString = totalAmountGiven.toString();
+                                      }
+                                      payWithCash = false;
+                                      payWithCheque = true;
+                                      payWithWireTransfer = false;
+                                    }),
+                                    print(
+                                        "payed with cash: $amountGivenCashString"),
+                                    print("total amount given cash: " +
+                                        totalAmountGivenCash.toString()),
+                                    print(
+                                        "payed with cheque: $amountGivenChequeString"),
+                                    print("total amount given cheque: " +
+                                        totalAmountGivenCheque.toString()),
+                                    print(
+                                        "payed with wire transfer: $amountGivenWireTransferString"),
+                                    print("total amount given wire transfer: " +
+                                        totalAmountGivenWireTransfer
+                                            .toString()),
+                                  },
+                                  child: Text(
+                                    'Cheque',
+                                    style: TextStyle(
+                                        color: AppColors.dark01Color,
+                                        fontSize: 25),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Color.fromARGB(255, 134, 137, 154),
+                                    minimumSize: Size(112.h, 77.v),
+                                    padding: EdgeInsets.all(16.0),
+                                    shape: RoundedRectangleBorder(),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () => {
+                                    setState(() {
+                                      if (!payWithWireTransfer) {
+                                        if (changePreviousAmount) {
+                                          amountGivenWireTransfer =
+                                              previousAmountWireTransfer;
+                                          amountGivenWireTransferString =
+                                              previousAmountWireTransferString;
+                                          changePreviousAmount = false;
+                                        }
+                                        amountGiven = 0;
+                                        amountGivenString = "";
+                                        amountGivenWireTransfer = 0;
+                                        amountGivenWireTransferString = "";
+                                        totalAmountGiven =
+                                            amountGivenCash + amountGivenCheque;
+                                      }
+                                      payWithCash = false;
+                                      payWithCheque = false;
+                                      payWithWireTransfer = true;
+                                    }),
+                                    print(
+                                        "payed with cash: $amountGivenCashString"),
+                                    print("total amount given cash: " +
+                                        totalAmountGivenCash.toString()),
+                                    print(
+                                        "payed with cheque: $amountGivenChequeString"),
+                                    print("total amount given cheque: " +
+                                        totalAmountGivenCheque.toString()),
+                                    print(
+                                        "payed with wire transfer: $amountGivenWireTransferString"),
+                                    print("total amount given wire transfer: " +
+                                        totalAmountGivenWireTransfer
+                                            .toString()),
+                                  },
+                                  child: Text(
+                                    'Wire Transfer',
+                                    style: TextStyle(
+                                        color: AppColors.dark01Color,
+                                        fontSize: 25),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Color.fromARGB(255, 134, 137, 154),
+                                    minimumSize: Size(112.h, 77.v),
+                                    padding: EdgeInsets.all(16.0),
+                                    shape: RoundedRectangleBorder(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Container(
+                                  width: 460.h,
+                                  height: 86.v,
+                                  color: Color.fromARGB(255, 134, 137, 154),
+                                  child: Center(
+                                    child: Text(
+                                      'Total Amount: ${totalAmount.toStringAsFixed(3)} TND',
+                                      style: TextStyle(
+                                        fontSize: 24.0,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFFf1eaff), // Font color
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: deviceSize.height * 0.01,
+                                ),
+                                Container(
+                                  width: deviceSize.width * 0.24,
+                                  height: deviceSize.height * 0.08,
+                                  color: Color.fromARGB(255, 134, 137, 154),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          'Previous cash: ${previousAmountCash.toStringAsFixed(3)} TND',
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color:
+                                                Color(0xFFf1eaff), // Font color
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        Text(
+                                          'Previous cheque: ${previousAmountCheque.toStringAsFixed(3)} TND',
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color:
+                                                Color(0xFFf1eaff), // Font color
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        Text(
+                                          'Previous wire: ${previousAmountWireTransfer.toStringAsFixed(3)} TND',
+                                          style: TextStyle(
+                                            fontSize: 12.0,
+                                            color:
+                                                Color(0xFFf1eaff), // Font color
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: deviceSize.height * 0.01,
+                                ),
+                                Container(
+                                  width: deviceSize.width * 0.24,
+                                  height: deviceSize.height * 0.08,
+                                  color: Color.fromARGB(255, 134, 137, 154),
+                                  child: Center(
+                                    child: Text(
+                                      'New amount: ${amountGiven.toStringAsFixed(3)} TND',
+                                      style: TextStyle(
+                                        fontSize: 24.0,
+                                        color: Color(0xFFf1eaff), // Font color
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: deviceSize.height * 0.01,
+                                ),
+                                Container(
+                                  width: deviceSize.width * 0.24,
+                                  height: deviceSize.height * 0.08,
+                                  color: Color.fromARGB(255, 134, 137, 154),
+                                  child: Center(
+                                    child: Text(
+                                      'Total Amount Given: ${totalAmountGiven.toStringAsFixed(3)} TND',
+                                      style: TextStyle(
+                                        fontSize: 24.0,
+                                        color: Color(0xFFf1eaff), // Font color
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -299,15 +616,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             children: [
                               Container(
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Container(
                                       margin: EdgeInsets.all(5),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           ElevatedButton(
-                                            onPressed: () => onNumberKeyPressed("1"),
+                                            onPressed: () =>
+                                                onNumberKeyPressed("1"),
                                             child: Text(
                                               '1',
                                               style: TextStyle(
@@ -316,15 +636,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             ),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                              AppColors.secondaryTextColor,
+                                                  AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
                                               padding: EdgeInsets.all(16.0),
                                               shape: RoundedRectangleBorder(),
                                             ),
                                           ),
-                                          SizedBox(width: deviceSize.width * 0.011),
+                                          SizedBox(
+                                              width: deviceSize.width * 0.011),
                                           ElevatedButton(
-                                            onPressed: () => onNumberKeyPressed("2"),
+                                            onPressed: () =>
+                                                onNumberKeyPressed("2"),
                                             child: Text(
                                               '2',
                                               style: TextStyle(
@@ -333,7 +655,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             ),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                              AppColors.secondaryTextColor,
+                                                  AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
                                               padding: EdgeInsets.all(16.0),
                                               shape: RoundedRectangleBorder(),
@@ -345,10 +667,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     Container(
                                       margin: EdgeInsets.all(5),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           ElevatedButton(
-                                            onPressed: () => onNumberKeyPressed("5"),
+                                            onPressed: () =>
+                                                onNumberKeyPressed("5"),
                                             child: Text(
                                               '5',
                                               style: TextStyle(
@@ -357,15 +681,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             ),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                              AppColors.secondaryTextColor,
+                                                  AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
                                               padding: EdgeInsets.all(16.0),
                                               shape: RoundedRectangleBorder(),
                                             ),
                                           ),
-                                          SizedBox(width: deviceSize.width * 0.011),
+                                          SizedBox(
+                                              width: deviceSize.width * 0.011),
                                           ElevatedButton(
-                                            onPressed: () => onNumberKeyPressed("10"),
+                                            onPressed: () =>
+                                                onNumberKeyPressed("10"),
                                             child: Text(
                                               '10',
                                               style: TextStyle(
@@ -374,7 +700,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             ),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                              AppColors.secondaryTextColor,
+                                                  AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
                                               padding: EdgeInsets.all(16.0),
                                               shape: RoundedRectangleBorder(),
@@ -386,10 +712,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     Container(
                                       margin: EdgeInsets.all(5),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           ElevatedButton(
-                                            onPressed: () => onNumberKeyPressed("20"),
+                                            onPressed: () =>
+                                                onNumberKeyPressed("20"),
                                             child: Text(
                                               '20',
                                               style: TextStyle(
@@ -398,15 +726,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             ),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                              AppColors.secondaryTextColor,
+                                                  AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
                                               padding: EdgeInsets.all(16.0),
                                               shape: RoundedRectangleBorder(),
                                             ),
                                           ),
-                                          SizedBox(width: deviceSize.width * 0.011),
+                                          SizedBox(
+                                              width: deviceSize.width * 0.011),
                                           ElevatedButton(
-                                            onPressed: () => onNumberKeyPressed("50"),
+                                            onPressed: () =>
+                                                onNumberKeyPressed("50"),
                                             child: Text(
                                               '50',
                                               style: TextStyle(
@@ -415,7 +745,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             ),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                              AppColors.secondaryTextColor,
+                                                  AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
                                               padding: EdgeInsets.all(16.0),
                                               shape: RoundedRectangleBorder(),
@@ -476,7 +806,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       ElevatedButton(
-                                        onPressed: () => onNumberKeyPressed("1"),
+                                        onPressed: () =>
+                                            onNumberKeyPressed("1"),
                                         child: Text(
                                           '1',
                                           style: TextStyle(
@@ -485,8 +816,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
-                                          AppColors.secondaryTextColor,
-                                          minimumSize: Size(deviceSize.width * 0.072,
+                                              AppColors.secondaryTextColor,
+                                          minimumSize: Size(
+                                              deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
                                           padding: EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(),
@@ -494,7 +826,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       ),
                                       SizedBox(width: deviceSize.width * 0.011),
                                       ElevatedButton(
-                                        onPressed: () => onNumberKeyPressed("2"),
+                                        onPressed: () =>
+                                            onNumberKeyPressed("2"),
                                         child: Text(
                                           '2',
                                           style: TextStyle(
@@ -503,8 +836,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
-                                          AppColors.secondaryTextColor,
-                                          minimumSize: Size(deviceSize.width * 0.072,
+                                              AppColors.secondaryTextColor,
+                                          minimumSize: Size(
+                                              deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
                                           padding: EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(),
@@ -512,7 +846,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       ),
                                       SizedBox(width: deviceSize.width * 0.011),
                                       ElevatedButton(
-                                        onPressed: () => onNumberKeyPressed("3"),
+                                        onPressed: () =>
+                                            onNumberKeyPressed("3"),
                                         child: Text(
                                           '3',
                                           style: TextStyle(
@@ -521,8 +856,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
-                                          AppColors.secondaryTextColor,
-                                          minimumSize: Size(deviceSize.width * 0.072,
+                                              AppColors.secondaryTextColor,
+                                          minimumSize: Size(
+                                              deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
                                           padding: EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(),
@@ -537,7 +873,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       ElevatedButton(
-                                        onPressed: () => onNumberKeyPressed("4"),
+                                        onPressed: () =>
+                                            onNumberKeyPressed("4"),
                                         child: Text(
                                           '4',
                                           style: TextStyle(
@@ -546,8 +883,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
-                                          AppColors.secondaryTextColor,
-                                          minimumSize: Size(deviceSize.width * 0.072,
+                                              AppColors.secondaryTextColor,
+                                          minimumSize: Size(
+                                              deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
                                           padding: EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(),
@@ -555,7 +893,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       ),
                                       SizedBox(width: deviceSize.width * 0.011),
                                       ElevatedButton(
-                                        onPressed: () => onNumberKeyPressed("5"),
+                                        onPressed: () =>
+                                            onNumberKeyPressed("5"),
                                         child: Text(
                                           '5',
                                           style: TextStyle(
@@ -564,8 +903,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
-                                          AppColors.secondaryTextColor,
-                                          minimumSize: Size(deviceSize.width * 0.072,
+                                              AppColors.secondaryTextColor,
+                                          minimumSize: Size(
+                                              deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
                                           padding: EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(),
@@ -573,7 +913,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       ),
                                       SizedBox(width: deviceSize.width * 0.011),
                                       ElevatedButton(
-                                        onPressed: () => onNumberKeyPressed("6"),
+                                        onPressed: () =>
+                                            onNumberKeyPressed("6"),
                                         child: Text(
                                           '6',
                                           style: TextStyle(
@@ -582,8 +923,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
-                                          AppColors.secondaryTextColor,
-                                          minimumSize: Size(deviceSize.width * 0.072,
+                                              AppColors.secondaryTextColor,
+                                          minimumSize: Size(
+                                              deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
                                           padding: EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(),
@@ -598,7 +940,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       ElevatedButton(
-                                        onPressed: () => onNumberKeyPressed("7"),
+                                        onPressed: () =>
+                                            onNumberKeyPressed("7"),
                                         child: Text(
                                           '7',
                                           style: TextStyle(
@@ -607,8 +950,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
-                                          AppColors.secondaryTextColor,
-                                          minimumSize: Size(deviceSize.width * 0.072,
+                                              AppColors.secondaryTextColor,
+                                          minimumSize: Size(
+                                              deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
                                           padding: EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(),
@@ -616,7 +960,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       ),
                                       SizedBox(width: deviceSize.width * 0.01),
                                       ElevatedButton(
-                                        onPressed: () => onNumberKeyPressed("8"),
+                                        onPressed: () =>
+                                            onNumberKeyPressed("8"),
                                         child: Text(
                                           '8',
                                           style: TextStyle(
@@ -625,8 +970,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
-                                          AppColors.secondaryTextColor,
-                                          minimumSize: Size(deviceSize.width * 0.072,
+                                              AppColors.secondaryTextColor,
+                                          minimumSize: Size(
+                                              deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
                                           padding: EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(),
@@ -634,7 +980,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       ),
                                       SizedBox(width: deviceSize.width * 0.011),
                                       ElevatedButton(
-                                        onPressed: () => onNumberKeyPressed("9"),
+                                        onPressed: () =>
+                                            onNumberKeyPressed("9"),
                                         child: Text(
                                           '9',
                                           style: TextStyle(
@@ -643,8 +990,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
-                                          AppColors.secondaryTextColor,
-                                          minimumSize: Size(deviceSize.width * 0.072,
+                                              AppColors.secondaryTextColor,
+                                          minimumSize: Size(
+                                              deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
                                           padding: EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(),
@@ -673,9 +1021,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
-                                          // AppColors.secondaryTextColor,
-                                          AppColors.secondaryTextColor,
-                                          minimumSize: Size(deviceSize.width * 0.072,
+                                              // AppColors.secondaryTextColor,
+                                              AppColors.secondaryTextColor,
+                                          minimumSize: Size(
+                                              deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
                                           padding: EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(),
@@ -683,7 +1032,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       ),
                                       SizedBox(width: deviceSize.width * 0.01),
                                       ElevatedButton(
-                                        onPressed: () => onNumberKeyPressed("0"),
+                                        onPressed: () =>
+                                            onNumberKeyPressed("0"),
                                         child: Text(
                                           '0',
                                           style: TextStyle(
@@ -692,8 +1042,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
-                                          AppColors.secondaryTextColor,
-                                          minimumSize: Size(deviceSize.width * 0.072,
+                                              AppColors.secondaryTextColor,
+                                          minimumSize: Size(
+                                              deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
                                           padding: EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(),
@@ -701,7 +1052,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       ),
                                       SizedBox(width: deviceSize.width * 0.011),
                                       ElevatedButton(
-                                        onPressed: () => onNumberKeyPressed("00"),
+                                        onPressed: () =>
+                                            onNumberKeyPressed("00"),
                                         child: Text(
                                           '00',
                                           style: TextStyle(
@@ -710,8 +1062,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
-                                          AppColors.secondaryTextColor,
-                                          minimumSize: Size(deviceSize.width * 0.072,
+                                              AppColors.secondaryTextColor,
+                                          minimumSize: Size(
+                                              deviceSize.width * 0.072,
                                               deviceSize.height * 0.067),
                                           padding: EdgeInsets.all(16.0),
                                           shape: RoundedRectangleBorder(),
@@ -728,7 +1081,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             width: deviceSize.width * 0.07,
                             child: InkWell(
                               onTap: () async {
-                                change = amountGiven - totalAmount;
+                                print("DONE CLICKED");
+                                print("total amount given: " +
+                                    totalAmountGiven.toString());
+                                print("amount given cash: " +
+                                    amountGivenCash.toString());
+                                print("amount given cheque: " +
+                                    amountGivenCheque.toString());
+                                print("amount given wire transfer: " +
+                                    amountGivenWireTransfer.toString());
+                                print("total amount: " +
+                                    totalAmountGiven.toString());
+                                change = totalAmountGiven - totalAmount;
                                 if (change >= 0) {
                                   if (await payment() == 200) {
                                     showDialog(
@@ -740,7 +1104,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           actions: [
                                             TextButton(
                                               onPressed: () {
-                                                widget.appState.switchCheckoutOrder();
+                                                widget.appState
+                                                    .switchCheckoutOrder();
                                                 widget.appState.switchRoom();
                                                 Navigator.pop(context);
                                               },
@@ -773,7 +1138,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: Text('Insufficient amount given'),
+                                        title:
+                                            Text('Insufficient amount given'),
                                         actions: [
                                           TextButton(
                                             onPressed: () {
@@ -814,7 +1180,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
           ),
         ],
-
       ),
     );
   }
