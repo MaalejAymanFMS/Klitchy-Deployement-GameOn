@@ -126,6 +126,34 @@ class _ButtomComponentState extends State<ButtomComponent> {
     );
   }
 
+  Future<void> showError(
+      BuildContext context, String message, String title) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(message),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -254,7 +282,7 @@ class _ButtomComponentState extends State<ButtomComponent> {
                         widget.appState.switchCheckout();
                       }
                     } else {
-                      confirmOrder(
+                      showError(
                           context,
                           "Please enter items before perceding to payment",
                           "No items entered");
