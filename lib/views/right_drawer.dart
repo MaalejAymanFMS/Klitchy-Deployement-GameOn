@@ -109,6 +109,7 @@ class _RightDrawerState extends State<RightDrawer> {
       widget.appState.updateEntryItemStatus(item.item_code!, "Sent");
     }
   }
+
   Future<void> addOrderss() async {
     for (var item in widget.appState.entryItems) {
       widget.appState.updateEntryItemStatus(item.item_code!, "Sent");
@@ -193,22 +194,15 @@ class _RightDrawerState extends State<RightDrawer> {
                   : const SizedBox(),
             ),
             ButtomComponent(
-
-              onTap: (
-                  ) async {
+              onTap: () async {
                 if (orderId.isEmpty) {
                   await addOrderss();
                   await fetchOrders();
-
                 } else {
                   await updateOrderr();
                   await fetchOrders();
-
                 }
-               //TODO  confirmOrder(context,"Order added successfully","Success");
-
-
-
+                //TODO  confirmOrder(context,"Order added successfully","Success");
               }
               //orderId.isEmpty ? addOrders : updateOrder
               ,
@@ -220,9 +214,6 @@ class _RightDrawerState extends State<RightDrawer> {
     );
   }
 // pop up dialog to confirm the order
-
-
-
 
   void showOrderDetails(OrderComponent order, AppState appState) {
     showDialog(

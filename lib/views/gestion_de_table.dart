@@ -46,7 +46,7 @@ class _GestionDeTableState extends State<GestionDeTable> {
 
   @override
   void initState() {
-    isDrawerOpen = false;
+    isDrawerOpen = true;
     fetchPrefs();
     super.initState();
   }
@@ -69,8 +69,8 @@ class _GestionDeTableState extends State<GestionDeTable> {
               ),
               appState.isWidgetEnabled
                   ? Drawer(
-                width: 300.h,
-                      child: LeftDrawer(_handleDrawer,appState),
+                      width: 300.h,
+                      child: LeftDrawer(_handleDrawer, appState),
                     )
                   : const SizedBox(),
             ],
@@ -78,7 +78,7 @@ class _GestionDeTableState extends State<GestionDeTable> {
           SizedBox(
             width: 15.h,
           ),
-           Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Padding(
@@ -86,11 +86,17 @@ class _GestionDeTableState extends State<GestionDeTable> {
                 child: Row(
                   children: [
                     //AvailableWaiters(appState.numberOfTables, appState.choosenRoom["name"] ?? "choose Room"),
-                    CurrentWaiter(name: nameWaiter,)
+                    CurrentWaiter(
+                      name: nameWaiter,
+                    )
                   ],
                 ),
               ),
-              StartPageVM(name: appState.choosenRoom["name"] ?? "name", id: appState.choosenRoom["id"] ?? "id", appState: appState, room: appState.room),
+              StartPageVM(
+                  name: appState.choosenRoom["name"] ?? "name",
+                  id: appState.choosenRoom["id"] ?? "id",
+                  appState: appState,
+                  room: appState.room),
             ],
           )
         ],
