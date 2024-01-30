@@ -11,8 +11,6 @@ import 'package:printing/printing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-//TODOO add payement methos
-
 class CheckoutScreen extends StatefulWidget {
   final AppState appState;
 
@@ -322,7 +320,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           Visibility(
             visible: isVisible,
             child: Container(
-              //color: Colors.yellow,
               padding: const EdgeInsets.all(16.0),
               child: Center(
                 child: Column(
@@ -331,283 +328,516 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   children: [
                     Center(
                       child: Container(
-                        padding: EdgeInsets.all(10),
-                        color: Color.fromARGB(255, 22, 26, 52),
+                        padding: const EdgeInsets.all(10),
+                        height: deviceSize.height * 0.4,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Column(
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () => {
-                                    setState(() {
-                                      if (!payWithCash) {
-                                        if (changePreviousAmount) {
-                                          amountGivenCheque =
-                                              previousAmountCash;
-                                          amountGivenChequeString =
-                                              previousAmountCashString;
-                                          changePreviousAmount = false;
-                                        }
-                                        // previousAmountGiven = amountGivenCash;
-                                        // previousAmountGivenString =
-                                        //     amountGivenCashString;
-                                        amountGiven = 0;
-                                        amountGivenString = "";
-                                        amountGivenCash = 0;
-                                        amountGivenCashString = "";
-                                        totalAmountGiven = amountGivenCheque +
-                                            amountGivenWireTransfer;
-
-                                        //totalAmountGivenString = totalAmountGiven.toString();
-                                      }
-                                      payWithCash = true;
-                                      payWithCheque = false;
-                                      payWithWireTransfer = false;
-                                    }),
-                                    print(
-                                        "payed with cash: $amountGivenCashString"),
-                                    print("total amount given cash: " +
-                                        totalAmountGivenCash.toString()),
-                                    print(
-                                        "payed with cheque: $amountGivenChequeString"),
-                                    print("total amount given cheque: " +
-                                        totalAmountGivenCheque.toString()),
-                                    print(
-                                        "payed with wire transfer: $amountGivenWireTransferString"),
-                                    print("total amount given wire transfer: " +
-                                        totalAmountGivenWireTransfer
-                                            .toString()),
-                                  },
-                                  child: Text(
-                                    'Cash',
-                                    style: TextStyle(
-                                        color: AppColors.dark01Color,
-                                        fontSize: 25),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        Color.fromARGB(255, 134, 137, 154),
-                                    minimumSize: Size(112.h, 77.v),
-                                    padding: EdgeInsets.all(16.0),
-                                    shape: RoundedRectangleBorder(),
-                                  ),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () => {
-                                    setState(() {
-                                      if (!payWithCheque) {
-                                        if (changePreviousAmount) {
-                                          amountGivenCheque =
-                                              previousAmountCheque;
-                                          amountGivenChequeString =
-                                              previousAmountChequeString;
-                                          changePreviousAmount = false;
-                                        }
-                                        // previousAmountGiven = amountGivenCheque;
-                                        // previousAmountGivenString =
-                                        //     amountGivenChequeString;
-
-                                        amountGiven = 0;
-                                        amountGivenString = "";
-                                        amountGivenCheque = 0;
-                                        amountGivenChequeString = "";
-                                        totalAmountGiven = amountGivenCash +
-                                            amountGivenWireTransfer;
-                                        //totalAmountGivenString = totalAmountGiven.toString();
-                                      }
-                                      payWithCash = false;
-                                      payWithCheque = true;
-                                      payWithWireTransfer = false;
-                                    }),
-                                    print(
-                                        "payed with cash: $amountGivenCashString"),
-                                    print("total amount given cash: " +
-                                        totalAmountGivenCash.toString()),
-                                    print(
-                                        "payed with cheque: $amountGivenChequeString"),
-                                    print("total amount given cheque: " +
-                                        totalAmountGivenCheque.toString()),
-                                    print(
-                                        "payed with wire transfer: $amountGivenWireTransferString"),
-                                    print("total amount given wire transfer: " +
-                                        totalAmountGivenWireTransfer
-                                            .toString()),
-                                  },
-                                  child: Text(
-                                    'Cheque',
-                                    style: TextStyle(
-                                        color: AppColors.dark01Color,
-                                        fontSize: 25),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        Color.fromARGB(255, 134, 137, 154),
-                                    minimumSize: Size(112.h, 77.v),
-                                    padding: EdgeInsets.all(16.0),
-                                    shape: RoundedRectangleBorder(),
-                                  ),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () => {
-                                    setState(() {
-                                      if (!payWithWireTransfer) {
-                                        if (changePreviousAmount) {
-                                          amountGivenWireTransfer =
-                                              previousAmountWireTransfer;
-                                          amountGivenWireTransferString =
-                                              previousAmountWireTransferString;
-                                          changePreviousAmount = false;
-                                        }
-                                        amountGiven = 0;
-                                        amountGivenString = "";
-                                        amountGivenWireTransfer = 0;
-                                        amountGivenWireTransferString = "";
-                                        totalAmountGiven =
-                                            amountGivenCash + amountGivenCheque;
-                                      }
-                                      payWithCash = false;
-                                      payWithCheque = false;
-                                      payWithWireTransfer = true;
-                                    }),
-                                    print(
-                                        "payed with cash: $amountGivenCashString"),
-                                    print("total amount given cash: " +
-                                        totalAmountGivenCash.toString()),
-                                    print(
-                                        "payed with cheque: $amountGivenChequeString"),
-                                    print("total amount given cheque: " +
-                                        totalAmountGivenCheque.toString()),
-                                    print(
-                                        "payed with wire transfer: $amountGivenWireTransferString"),
-                                    print("total amount given wire transfer: " +
-                                        totalAmountGivenWireTransfer
-                                            .toString()),
-                                  },
-                                  child: Text(
-                                    'Wire Transfer',
-                                    style: TextStyle(
-                                        color: AppColors.dark01Color,
-                                        fontSize: 25),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        Color.fromARGB(255, 134, 137, 154),
-                                    minimumSize: Size(112.h, 77.v),
-                                    padding: EdgeInsets.all(16.0),
-                                    shape: RoundedRectangleBorder(),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Container(
-                                  width: 460.h,
-                                  height: 86.v,
-                                  color: Color.fromARGB(255, 134, 137, 154),
-                                  child: Center(
-                                    child: Text(
-                                      'Total Amount: ${totalAmount.toStringAsFixed(3)} TND',
-                                      style: TextStyle(
-                                        fontSize: 24.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xFFf1eaff), // Font color
+                            SizedBox(
+                              width: deviceSize.width * 0.1,
+                              //height: deviceSize.height * 0.4,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    width: 100.h,
+                                    height: 100.v,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: payWithCash
+                                            ? Color.fromARGB(255, 237, 227, 227)
+                                            : Color.fromARGB(255, 36, 39, 54),
+                                        width: 2.0,
                                       ),
-                                      textAlign: TextAlign.center,
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: ElevatedButton(
+                                      onPressed: () => {
+                                        setState(() {
+                                          if (!payWithCash) {
+                                            if (changePreviousAmount) {
+                                              amountGivenCheque =
+                                                  previousAmountCash;
+                                              amountGivenChequeString =
+                                                  previousAmountCashString;
+                                              changePreviousAmount = false;
+                                            }
+                                            amountGiven = 0;
+                                            amountGivenString = "";
+                                            amountGivenCash = 0;
+                                            amountGivenCashString = "";
+                                            totalAmountGiven =
+                                                amountGivenCheque +
+                                                    amountGivenWireTransfer;
+                                          }
+                                          payWithCash = true;
+                                          payWithCheque = false;
+                                          payWithWireTransfer = false;
+                                        }),
+                                        print(
+                                            "payed with cash: $amountGivenCashString"),
+                                        print("total amount given cash: " +
+                                            totalAmountGivenCash.toString()),
+                                        print(
+                                            "payed with cheque: $amountGivenChequeString"),
+                                        print("total amount given cheque: " +
+                                            totalAmountGivenCheque.toString()),
+                                        print(
+                                            "payed with wire transfer: $amountGivenWireTransferString"),
+                                        print(
+                                            "total amount given wire transfer: " +
+                                                totalAmountGivenWireTransfer
+                                                    .toString()),
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            Color.fromARGB(255, 22, 26, 52),
+                                        minimumSize: Size(112.h, 77.v),
+                                        padding: EdgeInsets.all(16.0),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                      ),
+                                      child: Image.asset(
+                                        'assets/images/cash.png',
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
+                                  Container(
+                                    width: 100.h,
+                                    height: 100.v,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: payWithCheque
+                                            ? const Color.fromARGB(
+                                                255, 237, 227, 227)
+                                            : const Color.fromARGB(
+                                                255, 36, 39, 54),
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: ElevatedButton(
+                                      onPressed: () => {
+                                        setState(() {
+                                          if (!payWithCheque) {
+                                            if (changePreviousAmount) {
+                                              amountGivenCheque =
+                                                  previousAmountCheque;
+                                              amountGivenChequeString =
+                                                  previousAmountChequeString;
+                                              changePreviousAmount = false;
+                                            }
+
+                                            amountGiven = 0;
+                                            amountGivenString = "";
+                                            amountGivenCheque = 0;
+                                            amountGivenChequeString = "";
+                                            totalAmountGiven = amountGivenCash +
+                                                amountGivenWireTransfer;
+                                          }
+                                          payWithCash = false;
+                                          payWithCheque = true;
+                                          payWithWireTransfer = false;
+                                        }),
+                                        print(
+                                            "payed with cash: $amountGivenCashString"),
+                                        print("total amount given cash: " +
+                                            totalAmountGivenCash.toString()),
+                                        print(
+                                            "payed with cheque: $amountGivenChequeString"),
+                                        print("total amount given cheque: " +
+                                            totalAmountGivenCheque.toString()),
+                                        print(
+                                            "payed with wire transfer: $amountGivenWireTransferString"),
+                                        print(
+                                            "total amount given wire transfer: " +
+                                                totalAmountGivenWireTransfer
+                                                    .toString()),
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 22, 26, 52),
+                                        minimumSize: Size(112.h, 77.v),
+                                        padding: const EdgeInsets.all(16.0),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                      ),
+                                      child: Image.asset(
+                                        'assets/images/cheque.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 100.h,
+                                    height: 100.v,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: payWithWireTransfer
+                                            ? const Color.fromARGB(
+                                                255, 237, 227, 227)
+                                            : const Color.fromARGB(
+                                                255, 36, 39, 54),
+                                        width: 2.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    child: ElevatedButton(
+                                      onPressed: () => {
+                                        setState(() {
+                                          if (!payWithWireTransfer) {
+                                            if (changePreviousAmount) {
+                                              amountGivenWireTransfer =
+                                                  previousAmountWireTransfer;
+                                              amountGivenWireTransferString =
+                                                  previousAmountWireTransferString;
+                                              changePreviousAmount = false;
+                                            }
+                                            amountGiven = 0;
+                                            amountGivenString = "";
+                                            amountGivenWireTransfer = 0;
+                                            amountGivenWireTransferString = "";
+                                            totalAmountGiven = amountGivenCash +
+                                                amountGivenCheque;
+                                          }
+                                          payWithCash = false;
+                                          payWithCheque = false;
+                                          payWithWireTransfer = true;
+                                        }),
+                                        print(
+                                            "payed with cash: $amountGivenCashString"),
+                                        print("total amount given cash: " +
+                                            totalAmountGivenCash.toString()),
+                                        print(
+                                            "payed with cheque: $amountGivenChequeString"),
+                                        print("total amount given cheque: " +
+                                            totalAmountGivenCheque.toString()),
+                                        print(
+                                            "payed with wire transfer: $amountGivenWireTransferString"),
+                                        print(
+                                            "total amount given wire transfer: " +
+                                                totalAmountGivenWireTransfer
+                                                    .toString()),
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 22, 26, 52),
+                                        minimumSize: Size(112.h, 77.v),
+                                        padding: const EdgeInsets.all(16.0),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                      ),
+                                      child: Image.asset(
+                                        'assets/images/wire.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 134, 137, 154),
+                                border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 237, 227, 227),
+                                  width: 2.0,
                                 ),
-                                SizedBox(
-                                  height: deviceSize.height * 0.01,
-                                ),
-                                Container(
-                                  width: deviceSize.width * 0.24,
-                                  height: deviceSize.height * 0.08,
-                                  color: Color.fromARGB(255, 134, 137, 154),
-                                  child: Center(
-                                    child: Column(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              padding: const EdgeInsets.all(10),
+                              width: 460.h,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Total Due: ${totalAmount.toStringAsFixed(3)} TND',
+                                    style: const TextStyle(
+                                      fontSize: 28.0,
+                                      fontFamily: 'Poopins',
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const Divider(
+                                    height: 10,
+                                    thickness: 2,
+                                    indent: 20,
+                                    endIndent: 20,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                  ),
+                                  SizedBox(
+                                    height: deviceSize.height * 0.01,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        const Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Cash',
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Poopins',
+                                                fontWeight: FontWeight.w500,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                              ),
+                                              textAlign: TextAlign.justify,
+                                            ),
+                                            Text(
+                                              'Cheque',
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Poopins',
+                                                fontWeight: FontWeight.w500,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                              ),
+                                              textAlign: TextAlign.justify,
+                                            ),
+                                            Text(
+                                              'Wire Transfer',
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Poopins',
+                                                fontWeight: FontWeight.w500,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                              ),
+                                              textAlign: TextAlign.justify,
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: deviceSize.width * 0.01,
+                                        ),
+                                        const Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              ':',
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Poopins',
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                              ),
+                                              textAlign: TextAlign.justify,
+                                            ),
+                                            Text(
+                                              ':',
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Poopins',
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                              ),
+                                              textAlign: TextAlign.justify,
+                                            ),
+                                            Text(
+                                              ':',
+                                              style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontFamily: 'Poopins',
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                              ),
+                                              textAlign: TextAlign.justify,
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: deviceSize.width * 0.01,
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                '${previousAmountCash.toStringAsFixed(3)} TND',
+                                                style: const TextStyle(
+                                                  fontSize: 20.0,
+                                                  fontFamily: 'Poopins',
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              Text(
+                                                '${previousAmountCheque.toStringAsFixed(3)} TND',
+                                                style: const TextStyle(
+                                                  fontSize: 20.0,
+                                                  fontFamily: 'Poopins',
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              Text(
+                                                '${previousAmountWireTransfer.toStringAsFixed(3)} TND',
+                                                style: const TextStyle(
+                                                  fontSize: 20.0,
+                                                  fontFamily: 'Poopins',
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: deviceSize.height * 0.01,
+                                  ),
+                                  const Divider(
+                                    height: 10,
+                                    thickness: 2,
+                                    indent: 20,
+                                    endIndent: 20,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                  ),
+                                  SizedBox(
+                                    height: deviceSize.height * 0.01,
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Text(
-                                          'Previous cash: ${previousAmountCash.toStringAsFixed(3)} TND',
+                                        const Text(
+                                          'Total Given :',
                                           style: TextStyle(
-                                            fontSize: 12.0,
-                                            color:
-                                                Color(0xFFf1eaff), // Font color
+                                            fontSize: 26.0,
+                                            fontFamily: 'Poopins',
+                                            fontWeight: FontWeight.w600,
+                                            color: Color.fromARGB(255, 0, 0, 0),
                                           ),
                                           textAlign: TextAlign.center,
                                         ),
-                                        Text(
-                                          'Previous cheque: ${previousAmountCheque.toStringAsFixed(3)} TND',
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color:
-                                                Color(0xFFf1eaff), // Font color
-                                          ),
-                                          textAlign: TextAlign.center,
+                                        SizedBox(
+                                          width: deviceSize.width * 0.01,
                                         ),
-                                        Text(
-                                          'Previous wire: ${previousAmountWireTransfer.toStringAsFixed(3)} TND',
-                                          style: TextStyle(
-                                            fontSize: 12.0,
-                                            color:
-                                                Color(0xFFf1eaff), // Font color
+                                        Expanded(
+                                          child: Text(
+                                            '${totalAmountGiven.toStringAsFixed(3)} TND',
+                                            style: const TextStyle(
+                                              fontSize: 26.0,
+                                              fontFamily: 'Poopins',
+                                              fontWeight: FontWeight.w600,
+                                              color:
+                                                  Color.fromARGB(255, 0, 0, 0),
+                                            ),
+                                            textAlign: TextAlign.center,
                                           ),
-                                          textAlign: TextAlign.center,
                                         ),
                                       ],
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: deviceSize.height * 0.01,
-                                ),
-                                Container(
-                                  width: deviceSize.width * 0.24,
-                                  height: deviceSize.height * 0.08,
-                                  color: Color.fromARGB(255, 134, 137, 154),
-                                  child: Center(
-                                    child: Text(
-                                      'New amount: ${amountGiven.toStringAsFixed(3)} TND',
-                                      style: TextStyle(
-                                        fontSize: 24.0,
-                                        color: Color(0xFFf1eaff), // Font color
-                                      ),
-                                      textAlign: TextAlign.center,
+                                  SizedBox(
+                                    height: deviceSize.height * 0.01,
+                                  ),
+                                  const Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 15.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Enter amount:',
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontFamily: 'Poopins',
+                                            fontWeight: FontWeight.w500,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                          ),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: deviceSize.height * 0.01,
-                                ),
-                                Container(
-                                  width: deviceSize.width * 0.24,
-                                  height: deviceSize.height * 0.08,
-                                  color: Color.fromARGB(255, 134, 137, 154),
-                                  child: Center(
-                                    child: Text(
-                                      'Total Amount Given: ${totalAmountGiven.toStringAsFixed(3)} TND',
-                                      style: TextStyle(
-                                        fontSize: 24.0,
-                                        color: Color(0xFFf1eaff), // Font color
-                                      ),
-                                      textAlign: TextAlign.center,
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            '${amountGiven.toStringAsFixed(3)}',
+                                            maxLines: 1,
+                                            style: const TextStyle(
+                                              fontSize: 38.0,
+                                              fontFamily: 'Poopins',
+                                              fontWeight: FontWeight.w800,
+                                              color:
+                                                  Color.fromARGB(255, 0, 0, 0),
+                                            ),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ),
+                                        const Text(
+                                          'TND',
+                                          style: TextStyle(
+                                            fontSize: 38.0,
+                                            fontFamily: 'Poopins',
+                                            fontWeight: FontWeight.w600,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                          ),
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),
                     ),
                     SizedBox(
                       width: deviceSize.width * 0.1,
+                      height: deviceSize.height * 0.01,
                     ),
                     Container(
-                      color: Color.fromARGB(255, 22, 26, 52),
+                      color: const Color.fromARGB(255, 22, 26, 52),
                       padding: const EdgeInsets.all(16.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -628,18 +858,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           ElevatedButton(
                                             onPressed: () =>
                                                 onNumberKeyPressed("1"),
-                                            child: Text(
-                                              '1',
-                                              style: TextStyle(
-                                                  color: AppColors.dark01Color,
-                                                  fontSize: 25),
-                                            ),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
                                                   AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
-                                              padding: EdgeInsets.all(16.0),
-                                              shape: RoundedRectangleBorder(),
+                                              padding:
+                                                  const EdgeInsets.all(16.0),
+                                              shape:
+                                                  const RoundedRectangleBorder(),
+                                            ),
+                                            child: const Text(
+                                              '1',
+                                              style: TextStyle(
+                                                  color: AppColors.dark01Color,
+                                                  fontSize: 25),
                                             ),
                                           ),
                                           SizedBox(
@@ -647,18 +879,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           ElevatedButton(
                                             onPressed: () =>
                                                 onNumberKeyPressed("2"),
-                                            child: Text(
-                                              '2',
-                                              style: TextStyle(
-                                                  color: AppColors.dark01Color,
-                                                  fontSize: 25),
-                                            ),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
                                                   AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
-                                              padding: EdgeInsets.all(16.0),
-                                              shape: RoundedRectangleBorder(),
+                                              padding:
+                                                  const EdgeInsets.all(16.0),
+                                              shape:
+                                                  const RoundedRectangleBorder(),
+                                            ),
+                                            child: const Text(
+                                              '2',
+                                              style: TextStyle(
+                                                  color: AppColors.dark01Color,
+                                                  fontSize: 25),
                                             ),
                                           ),
                                         ],
@@ -673,18 +907,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           ElevatedButton(
                                             onPressed: () =>
                                                 onNumberKeyPressed("5"),
-                                            child: Text(
-                                              '5',
-                                              style: TextStyle(
-                                                  color: AppColors.dark01Color,
-                                                  fontSize: 25),
-                                            ),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
                                                   AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
-                                              padding: EdgeInsets.all(16.0),
-                                              shape: RoundedRectangleBorder(),
+                                              padding:
+                                                  const EdgeInsets.all(16.0),
+                                              shape:
+                                                  const RoundedRectangleBorder(),
+                                            ),
+                                            child: const Text(
+                                              '5',
+                                              style: TextStyle(
+                                                  color: AppColors.dark01Color,
+                                                  fontSize: 25),
                                             ),
                                           ),
                                           SizedBox(
@@ -692,18 +928,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           ElevatedButton(
                                             onPressed: () =>
                                                 onNumberKeyPressed("10"),
-                                            child: Text(
-                                              '10',
-                                              style: TextStyle(
-                                                  color: AppColors.dark01Color,
-                                                  fontSize: 25),
-                                            ),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
                                                   AppColors.secondaryTextColor,
                                               minimumSize: Size(112.h, 77.v),
                                               padding: EdgeInsets.all(16.0),
                                               shape: RoundedRectangleBorder(),
+                                            ),
+                                            child: const Text(
+                                              '10',
+                                              style: TextStyle(
+                                                  color: AppColors.dark01Color,
+                                                  fontSize: 25),
                                             ),
                                           ),
                                         ],
